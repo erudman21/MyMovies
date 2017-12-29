@@ -27,7 +27,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       // Check for existing users, creates a new user if not existing
-      const existingUser = await user.findOne({ googleId: profile.id });
+      const existingUser = await User.findOne({ googleId: profile.id });
       if (existingUser) {
         return done(null, existingUser);
       }
