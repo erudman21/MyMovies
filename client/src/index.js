@@ -16,5 +16,6 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
+  // Inject to root id in react index.html
   document.querySelector("#root")
 );
