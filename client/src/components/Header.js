@@ -15,23 +15,29 @@ class Header extends Component {
         );
       default:
         return (
-          <li>
+          <li key="1">
             <a href="/api/logout">Logout</a>
           </li>
         );
     }
   }
+
   render() {
     return (
       <nav>
-        <div className="nav-wrapper">
-          <Link
-            to={this.props.auth ? "/surveys" : "/"}
-            className="left brand-logo"
-          >
-            MyMovies
-          </Link>
-          <ul className="right">{this.renderContent()}</ul>
+        <div className="nav-wrapper blue-grey darken-2">
+          <div className="container">
+            <Link
+              to={this.props.auth ? "/movies" : "/"}
+              className="left brand-logo"
+              style={{ margin: "0 15px" }}
+            >
+              MyMovies
+            </Link>
+            <ul className="right hide-on-med-and-down">
+              {this.renderContent()}
+            </ul>
+          </div>
         </div>
       </nav>
     );
@@ -42,4 +48,4 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default Header;
+export default connect(mapStateToProps)(Header);
