@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 
+import "react-datepicker/dist/react-datepicker.css";
+
 class MovieDate extends Component {
   constructor(props) {
     super(props);
@@ -20,10 +22,12 @@ class MovieDate extends Component {
 
   render() {
     return (
-      <DatePicker
-        selected={this.state.startDate}
-        onChange={this.handleChange}
-      />
+      <div>
+        <DatePicker
+          selected={this.state.startDate}
+          onChange={this.handleChange}
+        />
+      </div>
     );
   }
 }

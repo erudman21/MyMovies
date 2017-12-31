@@ -10,28 +10,28 @@ class MovieForm extends Component {
   renderFields() {
     return _.map(formFields, ({ label, name }) => {
       return (
-        <Field
-          key={name}
-          component={MovieField}
-          type="text"
-          label={label}
-          name={name}
-        />
+        <Field key={name} component={MovieField} label={label} name={name} />
       );
     });
   }
 
   render() {
     return (
-      <div>
+      <div className="container" style={{ marginTop: "20px" }}>
         <form
-          onSubmit={this.props.handleSubmit(values => console.log(values))}
-        />
-        {this.renderFields()}
-        <button type="submit" className="teal btn-flat right white-text">
-          Done
-          <i className="material-icons right">done</i>
-        </button>
+          onSubmit={this.props.handleSubmit(value => {
+            console.log(value);
+          })}
+        >
+          {this.renderFields()}
+          <Link to="/movies" className="red btn-flat white-text">
+            Cancel
+          </Link>
+          <button type="submit" className="teal btn-flat right white-text">
+            Add Movie!
+            <i className="material-icons right">local_movies</i>
+          </button>
+        </form>
       </div>
     );
   }
