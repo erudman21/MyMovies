@@ -12,7 +12,8 @@
     "server": "nodemon index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild":
+      "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "",
   "license": "ISC",
@@ -29,7 +30,6 @@
     "passport-google-oauth20": "^1.0.0",
     "path-parser": "^3.0.1",
     "react": "^16.2.0",
-    "react-datepicker": "^1.0.3",
     "react-dom": "^16.2.0"
   }
 }

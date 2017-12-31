@@ -27,6 +27,7 @@ class MovieForm extends Component {
         <form
           onSubmit={this.props.handleSubmit(values => console.log(values))}
         />
+        {this.renderFields()}
         <button type="submit" className="teal btn-flat right white-text">
           Done
           <i className="material-icons right">done</i>
@@ -35,3 +36,7 @@ class MovieForm extends Component {
     );
   }
 }
+
+export default reduxForm({
+  form: "movieForm"
+})(MovieForm);
