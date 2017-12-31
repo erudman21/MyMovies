@@ -29,6 +29,7 @@
     "passport-google-oauth20": "^1.0.0",
     "path-parser": "^3.0.1",
     "react": "^16.2.0",
+    "react-datepicker": "^1.0.3",
     "react-dom": "^16.2.0"
   }
 }

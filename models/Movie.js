@@ -8,7 +8,8 @@ const movieSchema = new Schema({
   personalRating: String,
   personalReview: String,
   dateWatched: Date,
-  _user: { type: Schema.Types.ObjectId, ref: "User" }
+  _user: { type: Schema.Types.ObjectId, ref: "User" },
+  imdbURL: String
 });
 
 mongoose.model("movies", movieSchema);

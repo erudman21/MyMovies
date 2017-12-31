@@ -11,21 +11,21 @@ class MovieList extends Component {
     return this.props.movies.reverse().map(movie => {
       return (
         <div class="row">
-          <div class="col s12 m7">
+          <div class="col s12 m6">
             <div class="card">
               <div class="card-image">
-                <img src={movie.image} />
-                <span class="card-title">Card Title</span>
+                <img src={movie.image} alt="Oh no!" />
+                <span class="card-title">{movie.title}</span>
+                //<a class="btn-floating halfway-fab waves-effect waves-light red">
+                  // <i class="material-icons">add</i>
+                  //
+                </a>
               </div>
               <div class="card-content">
-                <p>
-                  I am a very simple card. I am good at containing small bits of
-                  information. I am convenient because I require little markup
-                  to use effectively.
-                </p>
+                <p>{movie.personalReview}</p>
               </div>
               <div class="card-action">
-                <a href="#">This is a link</a>
+                <a href={movie.imdbURL}>Link to IMDb page</a>
               </div>
             </div>
           </div>

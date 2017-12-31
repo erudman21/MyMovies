@@ -31,9 +31,19 @@ class Header extends Component {
               to={this.props.auth ? "/movies" : "/"}
               className="left brand-logo"
             >
+              <a
+                href="mobile"
+                data-activates="mobile-demo"
+                className="button-collapse"
+              >
+                <i className="material-icons">menu</i>
+              </a>
               MyMovies
             </Link>
             <ul className="right hide-on-med-and-down">
+              {this.renderContent()}
+            </ul>
+            <ul className="side-nav" id="mobile-demo">
               {this.renderContent()}
             </ul>
           </div>
