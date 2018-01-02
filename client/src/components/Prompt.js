@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Popup from "react-popup";
 import { Link } from "react-router-dom";
-import { reduxForm } from "redux-form";
 
 class Prompt extends Component {
   constructor(props) {
@@ -10,6 +9,14 @@ class Prompt extends Component {
     this.state = {
       value: this.props.defaultValue
     };
+
+    this.onChange = e => this._onChange(e);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.value !== this.state.value) {
+      this.props.onChange(this.state.value);
+    }
   }
 
   _onChange(e) {
@@ -19,6 +26,7 @@ class Prompt extends Component {
   }
 
   render() {
+    let path = "api/movies/confirm/" + this.state.value;
     return (
       <div>
         <input
@@ -26,9 +34,10 @@ class Prompt extends Component {
           placeholder={this.props.placeholder}
           className="mm-popup__input"
           value={this.state.value}
+          onChange={this.onChange}
         />
-        <Link to="/movies/new" className="teal btn-flat white-text">
-          Review it!
+        <Link to={path} className="teal btn-flat white-text">
+          Find it!
         </Link>
       </div>
     );
@@ -36,13 +45,22 @@ class Prompt extends Component {
 }
 
 /** Prompt plugin */
-Popup.registerPlugin("prompt", function(defaultValue, placeholder) {
+Popup.registerPlugin("prompt", function(defaultValue, placeholder, callback) {
+  let promptValue = null;
+  let promptChange = function(value) {
+    promptValue = value;
+  };
+
   this.create({
-    title: "Add a movie!",
-    content: <Prompt placeholder={placeholder} value={defaultValue} />
+    title: "Movie Search",
+    content: (
+      <Prompt
+        onChange={promptChange}
+        placeholder={placeholder}
+        value={defaultValue}
+      />
+    )
   });
 });
 
-export default reduxForm({
-  form: "movieForm"
-})(Prompt);
+export default Prompt;

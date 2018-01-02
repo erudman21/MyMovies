@@ -41,6 +41,5 @@ class MovieNew extends Component {
   }
 }
 
-export default reduxForm({
-  form: "movieForm"
-})(MovieNew);
+export default connect(actions)(withRouter(MovieNew));
+

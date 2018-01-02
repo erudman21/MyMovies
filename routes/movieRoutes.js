@@ -10,6 +10,10 @@ module.exports = app => {
     res.send(movies);
   });
 
+  app.get("/api/movies/confirm/:search", (req, res) => {
+    res.send("hi");
+  });
+
   app.post("/api/movies", requireLogin, async (req, res) => {
     const {
       title,

@@ -21,3 +21,4 @@ function mapStateToProps({ movies }) {
 }
 
 export default connect(mapStateToProps, { fetchMovies })(MovieList);
+
