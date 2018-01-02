@@ -2,6 +2,8 @@ const Path = require("path-parser");
 const requireLogin = require("../middlewares/requireLogin");
 const mongoose = require("mongoose");
 
+const Movie = mongoose.model("movies");
+
 module.exports = app => {
   app.post("/api/movies", requireLogin, async (req, res) => {
     const {

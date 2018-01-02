@@ -1,22 +1,27 @@
 import React from "react";
 import MovieDate from "./MovieDate";
-import Rating from "react-rating";
+import ReactStars from "react-stars";
+
+const ratingChanged = newRating => {
+  console.log(newRating);
+};
 
 export default ({ input, label, meta: { touched, error } }) => {
   // the default input field
-  let inputField = <input {...input} style={{ marginBottom: "5px" }} />;
+  var inputField = <input {...input} style={{ marginBottom: "5px" }} />;
 
   // show the date picker for this field
   if (input.name === "dateSeen") {
-    inputField = <MovieDate style={{ marginBottom: "5px" }} />;
+    inputField = <MovieDate {...input} />;
   }
 
   if (input.name === "personalRating") {
     inputField = (
-      <Rating
-        stop={10}
-        empty={<i className="material-icons">star_border</i>}
-        full={<i className="material-icons">star</i>}
+      <ReactStars
+        count={10}
+        onChange={ratingChanged}
+        size={24}
+        color={"#ffd700"}
       />
     );
   }

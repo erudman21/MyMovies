@@ -3,8 +3,12 @@ import { connect } from "react-redux";
 import { fetchMovies } from "../../actions";
 
 class MovieList extends Component {
+  componentDidMount() {
+    this.props.fetchMovies();
+  }
+
   renderMovies() {
-    return <div className="container">Movies!</div>;
+    return <div className="container">MovieList!</div>;
   }
 
   render() {

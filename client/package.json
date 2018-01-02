@@ -12,15 +12,17 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "keymaster": "^1.6.2",
     "materialize-css": "^0.100.2",
     "moment": "^2.20.1",
     "react": "^16.2.0",
     "react-datepicker": "^1.0.3",
     "react-dom": "^16.2.0",
-    "react-rating": "^0.9.1",
+    "react-popup": "^0.9.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
+    "react-stars": "^2.2.5",
     "redux": "^3.7.2",
     "redux-form": "^7.2.0",
     "redux-thunk": "^2.2.0"
