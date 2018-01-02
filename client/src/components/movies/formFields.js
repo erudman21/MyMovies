@@ -1,8 +1,8 @@
 export default [
   {
-    label: "Which movie did you watch?",
+    label: "Movie Title",
     name: "title",
-    valueError: "What's the movie title?",
+    valueError: "You didn't enter a movie!",
     type: "text"
   },
   {

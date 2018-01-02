@@ -5,6 +5,11 @@ const mongoose = require("mongoose");
 const Movie = mongoose.model("movies");
 
 module.exports = app => {
+  app.get("/api/movies", requireLogin, async (req, res) => {
+    const movies = await Movie.find({ _user: req.user.id });
+    res.send(movies);
+  });
+
   app.post("/api/movies", requireLogin, async (req, res) => {
     const {
       title,
