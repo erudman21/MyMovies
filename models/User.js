@@ -3,8 +3,7 @@ const { Schema } = mongoose;
 const movieSchema = require("./Movie");
 
 const userSchema = new Schema({
-  googleId: String,
-  movies: [movieSchema]
+  googleId: String
 });
 
 mongoose.model("users", userSchema);

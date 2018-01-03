@@ -10,28 +10,15 @@ module.exports = app => {
     res.send(movies);
   });
 
-  app.get("/api/movies/confirm/:search", (req, res) => {
-    res.send("hi");
-  });
-
   app.post("/api/movies", requireLogin, async (req, res) => {
-    const {
-      title,
-      image,
-      imdbRating,
-      personalRating,
-      personalReview,
-      dateWatched
-    } = req.body;
+    const { title, dateSeen, personalRating, personalComments } = req.body;
 
     // Create a new movie object with all of the appropriate fields
     const movie = new Movie({
       title,
-      image,
-      imdbRating,
+      dateSeen,
       personalRating,
-      personalReview,
-      dateWatched,
+      personalComments,
       _user: req.user.id
     });
 
@@ -43,7 +30,7 @@ module.exports = app => {
       // Send back the updated user model
       res.send(user);
     } catch (err) {
-      res.status(401).send(err);
+      res.status(422).send(err);
     }
   });
 };

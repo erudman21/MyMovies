@@ -3,13 +3,10 @@ const { Schema } = mongoose;
 
 const movieSchema = new Schema({
   title: String,
-  image: String,
-  imdbRating: String,
-  personalRating: String,
-  personalReview: String,
-  dateWatched: Date,
-  _user: { type: Schema.Types.ObjectId, ref: "User" },
-  imdbURL: String
+  dateSeen: Date,
+  personalRating: Number,
+  personalComments: String,
+  _user: { type: Schema.Types.ObjectId, ref: "User" }
 });
 
 mongoose.model("movies", movieSchema);
