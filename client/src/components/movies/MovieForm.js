@@ -9,9 +9,9 @@ import { connect } from "react-redux";
 
 class MovieForm extends Component {
   submit(values) {
-    const { addMovie } = this.props;
+    const { addMovie, history } = this.props;
 
-    addMovie(values, this.props.history);
+    addMovie(values, history);
   }
 
   renderFields() {
