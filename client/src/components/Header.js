@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { Menu, Button, Container, Image } from "semantic-ui-react";
+import SearchBar from "./SearchBar";
 
 class Header extends Component {
   renderContent() {
@@ -8,40 +10,48 @@ class Header extends Component {
       case null:
         return;
       case false:
+        // User is not logged in -> include log in option
         return (
-          <li>
-            <a href="/auth/google">Login With Google</a>
-          </li>
+          <Menu.Item position="right">
+            <Button as="a" href="/auth/google" inverted>
+              Log in
+            </Button>
+          </Menu.Item>
         );
       default:
+        // User is logged in -> include log out option
         return (
-          <li key="1">
-            <a href="/api/logout">Logout</a>
-          </li>
+          <Menu.Item position="right">
+            <Button as="a" href="/api/logout" inverted>
+              Logout
+            </Button>
+          </Menu.Item>
         );
     }
   }
 
   render() {
     return (
-      <nav>
-        <div className="nav-wrapper cyan darken-4">
-          <a href="#" data-activates="mobile" className="button-collapse">
-            <i className="material-icons">menu</i>
-          </a>
-          <div className="container">
-            <Link
-              to={this.props.auth ? "/movies" : "/"}
-              className="left brand-logo"
-            >
-              MyMovies
-            </Link>
-            <ul className="right hide-on-med-and-down">
-              {this.renderContent()}
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <Menu inverted color="blue" style={{ borderRadius: "0px" }}>
+        <Container>
+          <Menu.Item
+            as="a"
+            // If user is logged in clicking on the logo redirects to Dashboard
+            // Otherwise it redirects to the landing page
+            href={this.props.auth ? "/movies" : "/"}
+            className="ui medium header"
+          >
+            <Image
+              size="small"
+              src={require("./pictures/logo.png")}
+              style={{ marginRight: "0.25em" }}
+            />
+            MyMovies
+          </Menu.Item>
+          <SearchBar fluid style={{ margin: "1em", width: "40%" }} />
+          {this.renderContent()}
+        </Container>
+      </Menu>
     );
   }
 }
