@@ -26,6 +26,9 @@ class Header extends Component {
     return (
       <nav>
         <div className="nav-wrapper cyan darken-4">
+          <a href="#" data-activates="mobile" className="button-collapse">
+            <i className="material-icons">menu</i>
+          </a>
           <div className="container">
             <Link
               to={this.props.auth ? "/movies" : "/"}

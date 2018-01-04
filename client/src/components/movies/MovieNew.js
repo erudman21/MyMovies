@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-//import validateMovie from "../../utils/validateMovie";
 import MovieForm from "./MovieForm";
 import { reduxForm } from "redux-form";
 

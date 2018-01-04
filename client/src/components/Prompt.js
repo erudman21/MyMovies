@@ -1,65 +1,77 @@
 import React, { Component } from "react";
 import Popup from "react-popup";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import Autocomplete from "react-autocomplete";
+import _ from "lodash";
 
 class Prompt extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      value: this.props.defaultValue
+      value: "",
+      searchResults: []
     };
 
-    this.onChange = e => this._onChange(e);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.value !== this.state.value) {
-      this.props.onChange(this.state.value);
+  handleChange(event) {
+    this.setState({ value: event.target.value, searchResults: [] });
+    console.log(event.target.value);
+
+    try {
+      var url = `http://www.omdbapi.com/?apikey=aa390b01&s=${this.state.value}`;
+      axios.get(url).then(({ data }) => {
+        if (data.Search) {
+          _.map(data.Search, ({ Poster, Title, Year }) => {
+            this.setState({
+              searchResults: [...this.state.searchResults, Title]
+            });
+          });
+        }
+      });
+    } catch (e) {
+      console.log(e);
     }
   }
 
-  _onChange(e) {
-    let value = e.target.value;
-
-    this.setState({ value: value });
-  }
-
   render() {
-    let path = "api/movies/confirm/" + this.state.value;
     return (
-      <div>
-        <input
-          type="text"
-          placeholder={this.props.placeholder}
-          className="mm-popup__input"
+      <form onSubmit={this.handleSubmit}>
+        <label>Search for a movie:</label>
+        <Autocomplete
+          inputProps={{ placeholder: "Ex: Forrest Gump", padding: "2px" }}
+          getItemValue={item => item}
+          items={this.state.searchResults}
+          renderItem={(item, isHighlighted) => (
+            <div style={{ background: isHighlighted ? "lightgray" : "white" }}>
+              {item}
+            </div>
+          )}
+          menuStyle={{
+            padding: "2px 2px",
+            position: "fixed",
+            zIndex: 999
+          }}
+          open={this.state.searchResults.length !== 0}
           value={this.state.value}
-          onChange={this.onChange}
+          onChange={this.handleChange}
+          onSelect={value => this.setState({ value })}
         />
-        <Link to={path} className="teal btn-flat white-text">
+        <Link to="/movies/new" className="teal btn-flat white-text">
           Find it!
         </Link>
-      </div>
+      </form>
     );
   }
 }
 
-/** Prompt plugin */
-Popup.registerPlugin("prompt", function(defaultValue, placeholder, callback) {
-  let promptValue = null;
-  let promptChange = function(value) {
-    promptValue = value;
-  };
-
+Popup.registerPlugin("prompt", function(placeholder) {
   this.create({
-    title: "Movie Search",
-    content: (
-      <Prompt
-        onChange={promptChange}
-        placeholder={placeholder}
-        value={defaultValue}
-      />
-    )
+    title: "Add a movie!",
+    content: <Prompt />
   });
 });
 
