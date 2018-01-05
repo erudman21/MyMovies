@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_USER, FETCH_MOVIES } from "./types";
+import { FETCH_USER, FETCH_USER_MOVIES } from "./types";
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get("/api/current_user");
@@ -14,5 +14,5 @@ export const addMovie = (values, history) => async dispatch => {
 
 export const fetchMovies = () => async dispatch => {
   const res = await axios.get("/api/movies");
-  dispatch({ type: FETCH_MOVIES, payload: res.data });
+  dispatch({ type: FETCH_USER_MOVIES, payload: res.data });
 };

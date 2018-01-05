@@ -58,7 +58,11 @@ function validate(values) {
   return errors;
 }
 
-MovieForm = connect(null, actions)(MovieForm);
+function mapStateToProps(state) {
+  console.log(state);
+}
+
+MovieForm = connect(mapStateToProps, actions)(MovieForm);
 
 export default reduxForm({
   validate,

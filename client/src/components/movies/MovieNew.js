@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import MovieForm from "./MovieForm";
 import { reduxForm } from "redux-form";
+import { Container } from "semantic-ui-react";
 
 class MovieNew extends Component {
   render() {
     return (
-      <div className="container" style={{ marginTop: "20px" }}>
+      <Container style={{ marginTop: "20px" }}>
         <MovieForm />
-      </div>
+      </Container>
     );
   }
 }

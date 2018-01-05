@@ -9,6 +9,11 @@ import Dashboard from "./Dashboard";
 import MovieNew from "./movies/MovieNew";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { searchvalue: "" };
+  }
+
   componentDidMount() {
     this.props.fetchUser();
   }
@@ -17,10 +22,13 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Header />
+          <Header searchvalue={this.state.searchvalue} />
           <Route exact path="/" component={Landing} />
           <Route exact path="/movies" component={Dashboard} />
-          <Route path="/movies/new" component={MovieNew} />
+          <Route
+            path="/movies/new"
+            render={() => <MovieNew searchvalue={this.state.searchvalue} />}
+          />
         </div>
       </BrowserRouter>
     );

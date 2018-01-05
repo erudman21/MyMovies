@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { Menu, Button, Container, Image } from "semantic-ui-react";
 import SearchBar from "./SearchBar";
 
 class Header extends Component {
+  // Header content changes depending on authentication of the user
   renderContent() {
     switch (this.props.auth) {
       case null:
@@ -48,7 +48,14 @@ class Header extends Component {
             />
             MyMovies
           </Menu.Item>
-          <SearchBar fluid style={{ margin: "1em", width: "40%" }} />
+          <SearchBar
+            fluid
+            style={{
+              margin: "1em 0 1em 1em",
+              width: "35%"
+            }}
+          />
+
           {this.renderContent()}
         </Container>
       </Menu>
@@ -56,6 +63,7 @@ class Header extends Component {
   }
 }
 
+// Get the auth state to determine header content
 function mapStateToProps({ auth }) {
   return { auth };
 }

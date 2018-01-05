@@ -1,7 +1,7 @@
 import _ from "lodash";
 import axios from "axios";
 import React, { Component } from "react";
-import { Search } from "semantic-ui-react";
+import { Search, Button } from "semantic-ui-react";
 
 class SearchBar extends Component {
   componentWillMount() {
@@ -11,8 +11,10 @@ class SearchBar extends Component {
   resetComponent = () =>
     this.setState({ isLoading: false, results: [], value: "" });
 
-  handleResultSelect = (e, { result }) =>
+  handleResultSelect = (e, { result }) => {
     this.setState({ value: result.title });
+    e.preventDefault();
+  };
 
   handleSearchChange = (e, { value }) => {
     this.setState({ isLoading: true, value, results: [] });
@@ -53,8 +55,21 @@ class SearchBar extends Component {
 
     return (
       <Search
-        input={{ fluid: true }}
-        placeholder="Search for a movie"
+        icon={
+          <Button
+            style={{ borderRadius: "0 4px 4px 0" }}
+            as="a"
+            href="/movies/new"
+            inverted
+          >
+            Search
+          </Button>
+        }
+        input={{
+          style: { borderRadius: "0px" },
+          fluid: true,
+          placeholder: "Add a movie..."
+        }}
         loading={isLoading}
         onResultSelect={this.handleResultSelect}
         onSearchChange={this.handleSearchChange}
