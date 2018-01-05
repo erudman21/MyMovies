@@ -2,6 +2,8 @@ import _ from "lodash";
 import axios from "axios";
 import React, { Component } from "react";
 import { Search, Button } from "semantic-ui-react";
+import { withRouter } from "react-router-dom";
+import { reduxForm } from "redux-form";
 
 class SearchBar extends Component {
   componentWillMount() {
@@ -12,8 +14,16 @@ class SearchBar extends Component {
     this.setState({ isLoading: false, results: [], value: "" });
 
   handleResultSelect = (e, { result }) => {
-    this.setState({ value: result.title });
-    e.preventDefault();
+    try {
+      // CORS request to omdb with whatever is currently in search bar
+      var url = `http://www.omdbapi.com/?apikey=aa390b01&t=${result.title}`;
+      axios.get(url).then(({ data }) => {
+        console.log(data);
+        this.props.history.push("/movies/new");
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   handleSearchChange = (e, { value }) => {
@@ -81,4 +91,4 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
+export default withRouter(SearchBar);
