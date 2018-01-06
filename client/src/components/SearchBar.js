@@ -1,9 +1,10 @@
 import _ from "lodash";
 import axios from "axios";
 import React, { Component } from "react";
-import { Search, Button } from "semantic-ui-react";
+import { Search } from "semantic-ui-react";
+import * as actions from "../actions";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { reduxForm } from "redux-form";
 
 class SearchBar extends Component {
   componentWillMount() {
@@ -14,16 +15,8 @@ class SearchBar extends Component {
     this.setState({ isLoading: false, results: [], value: "" });
 
   handleResultSelect = (e, { result }) => {
-    try {
-      // CORS request to omdb with whatever is currently in search bar
-      var url = `http://www.omdbapi.com/?apikey=aa390b01&t=${result.title}`;
-      axios.get(url).then(({ data }) => {
-        console.log(data);
-        this.props.history.push("/movies/new");
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    const { loadMovieData, history } = this.props;
+    loadMovieData(result.title, history);
   };
 
   handleSearchChange = (e, { value }) => {
@@ -65,30 +58,30 @@ class SearchBar extends Component {
 
     return (
       <Search
-        icon={
-          <Button
-            style={{ borderRadius: "0 4px 4px 0" }}
-            as="a"
-            href="/movies/new"
-            inverted
-          >
-            Search
-          </Button>
+        input={
+          <div className="ui input" style={{ padding: "20px" }}>
+            <input
+              type="text"
+              placeholder="Add a movie..."
+              style={{ borderRadius: "4px 0 0 4px" }}
+            />
+            <button
+              href="/movies/new"
+              className="ui icon button"
+              style={{ borderRadius: "0 4px 4px 0" }}
+            >
+              <i className="search icon" />
+            </button>
+          </div>
         }
-        input={{
-          style: { borderRadius: "0px" },
-          fluid: true,
-          placeholder: "Add a movie..."
-        }}
         loading={isLoading}
         onResultSelect={this.handleResultSelect}
         onSearchChange={this.handleSearchChange}
         results={results}
         value={value}
-        {...this.props}
       />
     );
   }
 }
 
-export default withRouter(SearchBar);
+export default connect(null, actions)(withRouter(SearchBar));

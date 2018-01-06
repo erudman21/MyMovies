@@ -59,7 +59,7 @@ function validate(values) {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
+  return { initialValues: state.form.movieForm.values };
 }
 
 MovieForm = connect(mapStateToProps, actions)(MovieForm);

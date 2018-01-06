@@ -48,14 +48,7 @@ class Header extends Component {
             />
             MyMovies
           </Menu.Item>
-          <SearchBar
-            fluid
-            style={{
-              margin: "1em 0 1em 1em",
-              width: "35%"
-            }}
-          />
-
+          <SearchBar />
           {this.renderContent()}
         </Container>
       </Menu>
