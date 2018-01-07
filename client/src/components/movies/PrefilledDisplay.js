@@ -24,7 +24,7 @@ class PrefilledDisplay extends Component {
           verticalAlign="middle"
         >
           <Header size="huge">{Title}</Header>
-          <List size="small" style={{ marginTop: "1%" }}>
+          <List size="small" style={{ marginTop: "1%", fontWeight: "bold" }}>
             <List.Item>
               <List
                 divided
@@ -64,7 +64,8 @@ class PrefilledDisplay extends Component {
       return (
         <List.Item key={source}>
           <List.Content style={{ textAlign: "center" }}>
-            {source} <br />
+            {source}
+            <br />
             {Value}
           </List.Content>
         </List.Item>

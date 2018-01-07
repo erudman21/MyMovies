@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
-import MovieField from "./MovieField";
-import formFields from "./formFields";
-import _ from "lodash";
 import { withRouter } from "react-router-dom";
-import * as actions from "../../actions";
 import { connect } from "react-redux";
 import { Button, Container, Divider } from "semantic-ui-react";
+import * as actions from "../../actions";
 import PrefilledDisplay from "./PrefilledDisplay";
+import PersonalFields from "./PersonalFields";
 
 class MovieForm extends Component {
   submit(values) {
@@ -17,17 +15,7 @@ class MovieForm extends Component {
   }
 
   renderPersonalFields() {
-    return _.map(formFields, ({ label, name, type }) => {
-      return (
-        <Field
-          key={name}
-          component={MovieField}
-          type={type}
-          label={label}
-          name={name}
-        />
-      );
-    });
+    return <PersonalFields />;
   }
 
   render() {
@@ -49,21 +37,8 @@ class MovieForm extends Component {
   }
 }
 
-function validate(values) {
-  const errors = {};
-
-  _.each(formFields, ({ name, valueError }) => {
-    if (!values[name]) {
-      errors[name] = valueError;
-    }
-  });
-
-  return errors;
-}
-
 MovieForm = connect(null, actions)(MovieForm);
 
 export default reduxForm({
-  validate,
   form: "movieForm"
 })(withRouter(MovieForm));
