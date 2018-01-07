@@ -3,9 +3,11 @@ import { Field, reduxForm } from "redux-form";
 import MovieField from "./MovieField";
 import formFields from "./formFields";
 import _ from "lodash";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import * as actions from "../../actions";
 import { connect } from "react-redux";
+import { Button, Container, Divider } from "semantic-ui-react";
+import PrefilledDisplay from "./PrefilledDisplay";
 
 class MovieForm extends Component {
   submit(values) {
@@ -14,7 +16,7 @@ class MovieForm extends Component {
     finalAddMovie(values, history);
   }
 
-  renderFields() {
+  renderPersonalFields() {
     return _.map(formFields, ({ label, name, type }) => {
       return (
         <Field
@@ -30,18 +32,19 @@ class MovieForm extends Component {
 
   render() {
     return (
-      <div>
+      <Container>
+        <PrefilledDisplay />
+        <Divider section />
         <form onSubmit={this.props.handleSubmit(this.submit.bind(this))}>
-          {this.renderFields()}
-          <Link to="/movies" className="red btn-flat white-text">
+          {this.renderPersonalFields()}
+          <Button href="/movies" color="red">
             Cancel
-          </Link>
-          <button type="submit" className="teal btn-flat right white-text">
+          </Button>
+          <Button floated="right" color="blue">
             Add Movie!
-            <i className="material-icons right">local_movies</i>
-          </button>
+          </Button>
         </form>
-      </div>
+      </Container>
     );
   }
 }
@@ -58,11 +61,7 @@ function validate(values) {
   return errors;
 }
 
-function mapStateToProps(state) {
-  return { initialValues: state.form.movieForm.values };
-}
-
-MovieForm = connect(mapStateToProps, actions)(MovieForm);
+MovieForm = connect(null, actions)(MovieForm);
 
 export default reduxForm({
   validate,
