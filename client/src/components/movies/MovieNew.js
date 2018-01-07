@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import MovieForm from "./MovieForm";
-import { reduxForm } from "redux-form";
 import { Container } from "semantic-ui-react";
 
 class MovieNew extends Component {
@@ -13,6 +12,4 @@ class MovieNew extends Component {
   }
 }
 
-export default reduxForm({
-  form: "movieForm"
-})(MovieNew);
+export default MovieNew;

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { reduxForm } from "redux-form";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Button, Container, Divider } from "semantic-ui-react";
@@ -21,6 +20,7 @@ class MovieForm extends Component {
     this.onDateChange = this.onDateChange.bind(this);
     this.onRatingChange = this.onRatingChange.bind(this);
     this.onCommentsChange = this.onCommentsChange.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   onDateChange = date => this.setState({ dateSeen: date });
@@ -49,26 +49,48 @@ class MovieForm extends Component {
   }
 
   render() {
+    const {
+      movieData: {
+        Poster,
+        Title,
+        Rated,
+        Runtime,
+        Genre,
+        Year,
+        Director,
+        Plot,
+        Ratings
+      }
+    } = this.props;
+
     return (
       <Container>
-        <PrefilledDisplay />
+        <PrefilledDisplay
+          Poster={Poster}
+          Title={Title}
+          Rated={Rated}
+          Runtime={Runtime}
+          Genre={Genre}
+          Year={Year}
+          Director={Director}
+          Plot={Plot}
+          Ratings={Ratings}
+        />
         <Divider section />
-        <form onSubmit={this.props.handleSubmit(this.submit)}>
-          {this.renderPersonalFields()}
-          <Button href="/movies" color="red">
-            Cancel
-          </Button>
-          <Button floated="right" color="blue">
-            Add Movie!
-          </Button>
-        </form>
+        {this.renderPersonalFields()}
+        <Button href="/movies" color="red">
+          Cancel
+        </Button>
+        <Button floated="right" color="blue">
+          Add Movie!
+        </Button>
       </Container>
     );
   }
 }
 
-MovieForm = connect(null, actions)(MovieForm);
+function mapStateToProps(state) {
+  return { movieData: state.loadMovieData };
+}
 
-export default reduxForm({
-  form: "movieForm"
-})(withRouter(MovieForm));
+export default connect(mapStateToProps, actions)(withRouter(MovieForm));
