@@ -4,10 +4,10 @@ const { Schema } = mongoose;
 const movieSchema = new Schema({
   title: String,
   image: String,
-  officialRatings: [String],
-  runtime: Number,
+  officialRatings: [{ Source: String, Value: String }],
+  runtime: String,
   genre: String,
-  year: Number,
+  year: String,
   director: String,
   plot: String,
   dateSeen: Date,

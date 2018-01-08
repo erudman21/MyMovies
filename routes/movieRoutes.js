@@ -7,15 +7,35 @@ const Movie = mongoose.model("movies");
 module.exports = app => {
   app.get("/api/movies", requireLogin, async (req, res) => {
     const movies = await Movie.find({ _user: req.user.id });
+    console.log(movies);
     res.send(movies);
   });
 
   app.post("/api/movies", requireLogin, async (req, res) => {
-    const { title, dateSeen, personalRating, personalComments } = req.body;
+    const {
+      title,
+      image,
+      officialRatings,
+      runtime,
+      genre,
+      year,
+      director,
+      plot,
+      dateSeen,
+      personalRating,
+      personalComments
+    } = req.body;
 
     // Create a new movie object with all of the appropriate fields
     const movie = new Movie({
       title,
+      image,
+      officialRatings,
+      runtime,
+      genre,
+      year,
+      director,
+      plot,
       dateSeen,
       personalRating,
       personalComments,

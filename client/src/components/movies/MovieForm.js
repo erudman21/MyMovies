@@ -28,8 +28,25 @@ class MovieForm extends Component {
   onCommentsChange = (e, { value }) =>
     this.setState({ personalComments: value });
 
-  submit(values) {
-    const { finalAddMovie, history } = this.props;
+  submit(e) {
+    const { finalAddMovie, history, movieData } = this.props;
+    const { dateSeen, personalRating, personalComments } = this.state;
+
+    const values = {
+      title: movieData.Title,
+      image: movieData.Poster,
+      officialRatings: movieData.Ratings,
+      runtime: movieData.Runtime,
+      genre: movieData.Genre,
+      year: movieData.Year,
+      director: movieData.Director,
+      plot: movieData.Plot,
+      dateSeen: new Date(dateSeen._d),
+      personalRating,
+      personalComments
+    };
+
+    console.log(values);
 
     finalAddMovie(values, history);
   }
@@ -49,39 +66,29 @@ class MovieForm extends Component {
   }
 
   render() {
-    const {
-      movieData: {
-        Poster,
-        Title,
-        Rated,
-        Runtime,
-        Genre,
-        Year,
-        Director,
-        Plot,
-        Ratings
-      }
-    } = this.props;
+    const { movieData } = this.props;
 
     return (
       <Container>
         <PrefilledDisplay
-          Poster={Poster}
-          Title={Title}
-          Rated={Rated}
-          Runtime={Runtime}
-          Genre={Genre}
-          Year={Year}
-          Director={Director}
-          Plot={Plot}
-          Ratings={Ratings}
+          Poster={movieData.Poster}
+          Title={movieData.Title}
+          Rated={movieData.Rated}
+          Runtime={movieData.Runtime}
+          Genre={movieData.Genre}
+          Year={movieData.Year}
+          Director={movieData.Director}
+          Plot={movieData.Plot}
+          Ratings={movieData.Ratings}
         />
         <Divider section />
-        {this.renderPersonalFields()}
+        <Container style={{ padding: "0 0 1.5% 0" }}>
+          {this.renderPersonalFields()}
+        </Container>
         <Button href="/movies" color="red">
           Cancel
         </Button>
-        <Button floated="right" color="blue">
+        <Button onClick={this.submit} floated="right" color="blue">
           Add Movie!
         </Button>
       </Container>

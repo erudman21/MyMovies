@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, Header, List, Grid } from "semantic-ui-react";
-import _ from "lodash";
+import RenderRatings from "./RenderRatings";
 
 const PrefilledDisplay = ({
   Poster,
@@ -13,19 +13,6 @@ const PrefilledDisplay = ({
   Plot,
   Ratings
 }) => {
-  const renderRatings = _.map(Ratings, ({ Source, Value }) => {
-    const source = Source === "Internet Movie Database" ? "IMDb" : Source;
-    return (
-      <List.Item key={source}>
-        <List.Content style={{ textAlign: "center" }}>
-          {source}
-          <br />
-          {Value}
-        </List.Content>
-      </List.Item>
-    );
-  });
-
   return (
     <Grid centered columns={2} style={{ marginBottom: "1%" }}>
       <Grid.Column style={{ padding: ".5%" }}>
@@ -56,16 +43,7 @@ const PrefilledDisplay = ({
             </List>
           </List.Item>
           <List.Item>{Director}</List.Item>
-          <List.Item>
-            <List
-              divided
-              size="tiny"
-              horizontal
-              style={{ margin: "0", padding: "0" }}
-            >
-              {renderRatings}
-            </List>
-          </List.Item>
+          <List.Item>{<RenderRatings ratings={Ratings} />}</List.Item>
           <List.Item>{Plot}</List.Item>
         </List>
       </Grid.Column>
