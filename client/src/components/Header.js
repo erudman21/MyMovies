@@ -2,8 +2,23 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Menu, Button, Container, Image } from "semantic-ui-react";
 import SearchBar from "./SearchBar";
+import LoginModal from "./LoginModal";
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: false
+    };
+
+    this.show = this.show.bind(this);
+    this.close = this.close.bind(this);
+  }
+
+  show = () => this.setState({ open: true });
+  close = () => this.setState({ open: false });
+
   // Header content changes depending on authentication of the user
   renderContent() {
     switch (this.props.auth) {
@@ -13,9 +28,10 @@ class Header extends Component {
         // User is not logged in -> include log in option
         return (
           <Menu.Item position="right">
-            <Button as="a" href="/auth/google" inverted>
+            <Button onClick={this.show} inverted>
               Log in
             </Button>
+            <LoginModal open={this.state.open} close={this.close} />
           </Menu.Item>
         );
       default:

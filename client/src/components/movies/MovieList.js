@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchMovies } from "../../actions";
-import { Image, Card, Container, Divider } from "semantic-ui-react";
+import { Image, Card, Divider } from "semantic-ui-react";
 import RenderRatings from "./RenderRatings";
 import ReactStars from "react-stars";
 
@@ -25,6 +25,7 @@ class MovieList extends Component {
             <Card.Header textAlign="center" size="huge">
               {movie.title}
             </Card.Header>
+            <Divider hidden style={{ margin: ".5% 0" }} />
             <Card.Meta style={{ fontSize: "15px" }}>
               <div>Seen: {new Date(movie.dateSeen).toLocaleDateString()}</div>
               <Divider hidden style={{ margin: "1% 0" }} />
@@ -37,7 +38,7 @@ class MovieList extends Component {
               />
               <Divider hidden style={{ margin: "1% 0" }} />
               Your Review:<br />
-              <div style={{ overflow: "auto", maxHeight: "100px" }}>
+              <div style={{ overflow: "auto", maxHeight: "93px" }}>
                 {movie.personalComments}
               </div>
             </Card.Meta>
