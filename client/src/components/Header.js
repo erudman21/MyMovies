@@ -48,7 +48,7 @@ class Header extends Component {
 
   render() {
     return (
-      <Menu inverted color="blue" style={{ borderRadius: "0px" }}>
+      <Menu inverted color="black" style={{ borderRadius: "0px" }}>
         <Container>
           <Menu.Item
             as="a"
