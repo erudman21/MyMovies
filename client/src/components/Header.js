@@ -59,7 +59,7 @@ class Header extends Component {
           >
             <Image
               size="small"
-              src={require("./pictures/logo.png")}
+              src={require("../media/logo.png")}
               style={{ marginRight: "0.25em" }}
             />
             MyMovies

@@ -28,7 +28,6 @@
 
 .header-content {
   position: relative;
-  float: left;
   top: 5%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -36,13 +35,15 @@
 }
 
 .header-content h1 {
+  float: right;
   font-size: 50px;
   margin-bottom: 0;
 }
 
 .header-content p {
+  clear: both;
+  margin-left: 5px;
   font-size: 1.5rem;
-  display: block;
 }
 
 @media (max-width: 960px) {

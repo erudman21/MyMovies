@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button } from "semantic-ui-react";
+import { Button, Image } from "semantic-ui-react";
 import LoginModal from "../LoginModal";
 import "./style.css";
 
@@ -29,9 +29,20 @@ class Landing extends Component {
           />
         </div>
         <div className="header-content">
+          <Image
+            size="tiny"
+            src={require("../../media/logo.png")}
+            floated="left"
+            style={{ marginRight: ".5em" }}
+          />
           <h1>MyMovies</h1>
           <p>An online journal for moviephiles!</p>
-          <Button size="large" onClick={this.show} inverted>
+          <Button
+            size="large"
+            onClick={this.show}
+            style={{ marginRight: "0", marginLeft: "5px" }}
+            inverted
+          >
             Log in
           </Button>
           <LoginModal open={this.state.open} close={this.close} />
