@@ -6,9 +6,7 @@ import RenderRatings from "./RenderRatings";
 import ReactStars from "react-stars";
 
 class MovieList extends Component {
-  componentDidMount() {
-    this.props.fetchMovies();
-  }
+  componentDidMount = () => this.props.fetchMovies();
 
   renderMovies() {
     return this.props.movies.reverse().map(movie => {

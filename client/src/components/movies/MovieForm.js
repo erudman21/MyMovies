@@ -46,8 +46,6 @@ class MovieForm extends Component {
       personalComments
     };
 
-    console.log(values);
-
     finalAddMovie(values, history);
   }
 

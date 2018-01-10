@@ -16,8 +16,7 @@ class LoginModal extends Component {
             fluid
             style={{ marginTop: "5%" }}
           >
-            <Icon name="facebook" />
-            Facebook
+            <Icon name="facebook" /> Facebook
           </Button>
           <br />
           <Button
@@ -26,8 +25,7 @@ class LoginModal extends Component {
             fluid
             style={{ marginBottom: "5%" }}
           >
-            <Icon name="google plus" />
-            Google
+            <Icon name="google plus" /> Google
           </Button>
         </div>
       </Modal>

@@ -19,7 +19,7 @@ export const fetchMovies = () => async dispatch => {
 
 export const loadMovieData = (title, history) => async dispatch => {
   var url = `http://www.omdbapi.com/?apikey=aa390b01&t=${title}`;
-  const res = await axios.get(url);
+  const res = await axios.post(url, title);
   history.push("/movies/new");
   dispatch({ type: LOAD_MOVIE_DATA, payload: res.data });
 };
