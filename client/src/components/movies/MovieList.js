@@ -1,12 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchMovies } from "../../actions";
-import { Image, Card, Divider } from "semantic-ui-react";
+import {
+  Image,
+  Card,
+  Divider,
+  Header,
+  Loader,
+  Container
+} from "semantic-ui-react";
 import RenderRatings from "./RenderRatings";
 import ReactStars from "react-stars";
 
 class MovieList extends Component {
-  componentDidMount = () => this.props.fetchMovies();
+  constructor(props) {
+    super(props);
+    this.state = { loading: true };
+  }
+
+  componentDidMount = () => {
+    this.props.fetchMovies().then(() => {
+      this.setState({ loading: false });
+    });
+  };
 
   renderMovies() {
     return this.props.movies.reverse().map(movie => {
@@ -14,11 +30,10 @@ class MovieList extends Component {
         <Card fluid key={movie.title}>
           <Card.Content>
             <Image
-              verticalAlign="middle"
               floated="left"
               size="small"
               src={movie.image}
-              style={{ margin: "0 2% 0 0" }}
+              style={{ margin: "auto 2% auto 0" }}
             />
             <Card.Header textAlign="center" size="huge">
               {movie.title}
@@ -47,7 +62,33 @@ class MovieList extends Component {
   }
 
   render() {
-    return <Card.Group itemsPerRow={2}>{this.renderMovies()}</Card.Group>;
+    const { loading } = this.state;
+    const { movies: { length } } = this.props;
+
+    const centeringStyling = {
+      fontSize: "300%",
+      marginTop: "10%"
+    };
+
+    if (loading)
+      return <Loader active inline="centered" style={{ marginTop: "15%" }} />;
+
+    if (length === 0) {
+      const header = "Oh no, you don't have any movies!";
+      return (
+        <Header disabled textAlign="center" style={centeringStyling}>
+          {header}
+          <br />
+          <p>Use the search bar to look for movies to add to our journal!</p>
+        </Header>
+      );
+    }
+
+    return (
+      <Container style={{ padding: "0 3%" }}>
+        <Card.Group itemsPerRow={2}>{this.renderMovies()}</Card.Group>
+      </Container>
+    );
   }
 }
 
