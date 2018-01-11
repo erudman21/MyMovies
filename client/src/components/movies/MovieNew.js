@@ -8,9 +8,7 @@ class MovieNew extends Component {
     return (
       <div>
         <Header />
-        <Container style={{ marginTop: "20px" }}>
-          <MovieForm />
-        </Container>
+        <MovieForm />
       </div>
     );
   }

@@ -1,14 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchMovies } from "../../actions";
-import {
-  Image,
-  Card,
-  Divider,
-  Header,
-  Loader,
-  Container
-} from "semantic-ui-react";
+import { Image, Card, Divider, Header, Loader } from "semantic-ui-react";
 import RenderRatings from "./RenderRatings";
 import ReactStars from "react-stars";
 
@@ -65,18 +58,20 @@ class MovieList extends Component {
     const { loading } = this.state;
     const { movies: { length } } = this.props;
 
-    const centeringStyling = {
-      fontSize: "300%",
-      marginTop: "10%"
-    };
-
     if (loading)
-      return <Loader active inline="centered" style={{ marginTop: "15%" }} />;
+      return <Loader active inline="centered" style={{ marginTop: "20%" }} />;
 
     if (length === 0) {
       const header = "Oh no, you don't have any movies!";
       return (
-        <Header disabled textAlign="center" style={centeringStyling}>
+        <Header
+          disabled
+          textAlign="center"
+          style={{
+            fontSize: "250%",
+            marginTop: "20%"
+          }}
+        >
           {header}
           <br />
           <p>Use the search bar to look for movies to add to our journal!</p>
@@ -84,11 +79,7 @@ class MovieList extends Component {
       );
     }
 
-    return (
-      <Container style={{ padding: "0 3%" }}>
-        <Card.Group itemsPerRow={2}>{this.renderMovies()}</Card.Group>
-      </Container>
-    );
+    return <Card.Group itemsPerRow={2}>{this.renderMovies()}</Card.Group>;
   }
 }
 

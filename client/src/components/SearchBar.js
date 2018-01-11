@@ -15,6 +15,9 @@ class SearchBar extends Component {
 
   handleResultSelect = (e, { result: { key } }) => {
     const { loadMovieDataFull, history } = this.props;
+
+    this.setState({ value: "" });
+
     loadMovieDataFull({ id: key }, history);
   };
 
