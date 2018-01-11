@@ -1,5 +1,4 @@
 import _ from "lodash";
-import axios from "axios";
 import React, { Component } from "react";
 import { Search } from "semantic-ui-react";
 import * as actions from "../actions";
@@ -14,38 +13,33 @@ class SearchBar extends Component {
   resetComponent = () =>
     this.setState({ isLoading: false, results: [], value: "" });
 
-  handleResultSelect = (e, { result }) => {
-    const { loadMovieData, history } = this.props;
-    loadMovieData(result.title, history);
+  handleResultSelect = (e, { result: { key } }) => {
+    const { loadMovieDataFull, history } = this.props;
+    loadMovieDataFull({ id: key }, history);
   };
 
   handleSearchChange = (e, { value }) => {
     this.setState({ isLoading: true, value, results: [] });
 
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent();
+    setTimeout(async () => {
+      if (value.length < 1) return this.resetComponent();
 
-      try {
-        // CORS request to omdb with whatever is currently in search bar
-        var url = `http://www.omdbapi.com/?apikey=aa390b01&s=${value}`;
-        axios.get(url).then(({ data }) => {
-          if (data.Search) {
-            this.setState({
-              results: _.map(
-                data.Search,
-                ({ Poster, Title, Year, imdbID }) => ({
-                  key: imdbID,
-                  title: Title,
-                  image: Poster,
-                  description: Year
-                })
-              )
-            });
-          }
-        });
-      } catch (e) {
-        console.log(e);
-      }
+      const { loadMovieDataLight } = this.props;
+
+      loadMovieDataLight({ title: value }).then(() => {
+        const { movieData: { Response, Search } } = this.props;
+
+        if (Response === "True") {
+          this.setState({
+            results: _.map(Search, ({ Poster, Title, Year, imdbID }) => ({
+              key: imdbID,
+              title: Title,
+              image: Poster,
+              description: Year
+            }))
+          });
+        }
+      });
 
       this.setState({
         isLoading: false
@@ -84,4 +78,8 @@ class SearchBar extends Component {
   }
 }
 
-export default connect(null, actions)(withRouter(SearchBar));
+function mapStateToProps(state) {
+  return { movieData: state.loadMovieDataLight };
+}
+
+export default connect(mapStateToProps, actions)(withRouter(SearchBar));

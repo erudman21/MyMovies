@@ -95,7 +95,7 @@ class MovieForm extends Component {
 }
 
 function mapStateToProps(state) {
-  return { movieData: state.loadMovieData };
+  return { movieData: state.loadMovieDataFull };
 }
 
 export default connect(mapStateToProps, actions)(withRouter(MovieForm));

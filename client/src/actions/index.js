@@ -1,5 +1,10 @@
 import axios from "axios";
-import { FETCH_USER, FETCH_USER_MOVIES, LOAD_MOVIE_DATA } from "./types";
+import {
+  FETCH_USER,
+  FETCH_USER_MOVIES,
+  LOAD_MOVIE_DATA_FULL,
+  LOAD_MOVIE_DATA_LIGHT
+} from "./types";
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get("/api/current_user");
@@ -17,9 +22,13 @@ export const fetchMovies = () => async dispatch => {
   dispatch({ type: FETCH_USER_MOVIES, payload: res.data });
 };
 
-export const loadMovieData = (title, history) => async dispatch => {
-  var url = `http://www.omdbapi.com/?apikey=aa390b01&t=${title}`;
-  const res = await axios.post(url, title);
+export const loadMovieDataFull = (id, history) => async dispatch => {
+  const res = await axios.post("/omdb/movie/full", id);
   history.push("/movies/new");
-  dispatch({ type: LOAD_MOVIE_DATA, payload: res.data });
+  dispatch({ type: LOAD_MOVIE_DATA_FULL, payload: res.data });
+};
+
+export const loadMovieDataLight = title => async dispatch => {
+  const res = await axios.post("/omdb/movie/short", title);
+  dispatch({ type: LOAD_MOVIE_DATA_LIGHT, payload: res.data });
 };
