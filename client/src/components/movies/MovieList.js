@@ -28,7 +28,7 @@ class MovieList extends Component {
               src={movie.image}
               style={{ margin: "auto 2% auto 0" }}
             />
-            <Card.Header textAlign="center" size="huge">
+            <Card.Header textAlign="center" style={{ fontSize: "200%" }}>
               {movie.title}
             </Card.Header>
             <Divider hidden style={{ margin: ".5% 0" }} />
@@ -79,7 +79,11 @@ class MovieList extends Component {
       );
     }
 
-    return <Card.Group itemsPerRow={2}>{this.renderMovies()}</Card.Group>;
+    return (
+      <Card.Group itemsPerRow={2} style={{ margin: "auto -8%" }}>
+        {this.renderMovies()}
+      </Card.Group>
+    );
   }
 }
 

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Button, Container, Divider } from "semantic-ui-react";
+import { Button, Container } from "semantic-ui-react";
 import * as actions from "../../actions";
-import PrefilledDisplay from "./PrefilledDisplay";
+import PrefilledDisplay from "./prefilledDisplay/PrefilledDisplay";
 import PersonalFields from "./PersonalFields";
 import moment from "moment";
 
@@ -68,19 +68,8 @@ class MovieForm extends Component {
 
     return (
       <Container>
-        <PrefilledDisplay
-          Poster={movieData.Poster}
-          Title={movieData.Title}
-          Rated={movieData.Rated}
-          Runtime={movieData.Runtime}
-          Genre={movieData.Genre}
-          Year={movieData.Year}
-          Director={movieData.Director}
-          Plot={movieData.Plot}
-          Ratings={movieData.Ratings}
-        />
-        <Divider section />
-        <Container style={{ padding: "0 0 1.5% 0" }}>
+        <PrefilledDisplay movieData={movieData} />
+        <Container style={{ padding: "1.5% 0" }}>
           {this.renderPersonalFields()}
         </Container>
         <Button href="/movies" color="red">

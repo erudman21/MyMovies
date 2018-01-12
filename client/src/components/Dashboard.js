@@ -7,7 +7,7 @@ const Dashboard = () => {
   return (
     <div>
       <Header />
-      <Container style={{ padding: "0 3%" }}>
+      <Container>
         <MovieList />
       </Container>
     </div>

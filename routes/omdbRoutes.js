@@ -15,7 +15,7 @@ module.exports = app => {
 
   app.post("/omdb/movie/full", async (req, res) => {
     const { id } = req.body;
-    const movie = await omdb.byId({ imdb: id });
+    const movie = await omdb.byId({ imdb: id, plot: "full" });
     res.send(movie);
   });
 };
