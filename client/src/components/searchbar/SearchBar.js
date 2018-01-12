@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React, { Component } from "react";
-import { Search, Label } from "semantic-ui-react";
+import { Search } from "semantic-ui-react";
 import * as actions from "../../actions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -53,19 +53,16 @@ class SearchBar extends Component {
     return (
       <Search
         input={
-          <div className="ui input" style={{ margin: "20px" }}>
+          <div
+            className="ui icon input"
+            style={{ margin: "20px", width: "95%" }}
+          >
             <input
               type="text"
               placeholder="Add a movie..."
-              style={{ borderRadius: "4px 0 0 4px" }}
+              style={{ borderRadius: "4px" }}
             />
-            <button
-              href="/movies/new"
-              className="ui icon button"
-              style={{ borderRadius: "0 4px 4px 0" }}
-            >
-              <i className="search icon" />
-            </button>
+            <i className="search icon" />
           </div>
         }
         loading={isLoading}
