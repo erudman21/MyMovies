@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Menu, Button, Container, Image } from "semantic-ui-react";
-import SearchBar from "./SearchBar";
+import SearchBar from "./searchbar/SearchBar";
 import LoginModal from "./LoginModal";
 
 class Header extends Component {

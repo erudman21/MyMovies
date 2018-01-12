@@ -1,0 +1,20 @@
+.results.transition.visible {
+  width: 222px;
+  margin-left: 20px;
+  margin-top: -7.2%;
+  max-height: 350%;
+  overflow-y: scroll;
+}
+
+.results.transition.visible .result .image {
+  width: 29px;
+}
+
+.results.transition.visible .result .image img {
+  float: right;
+}
+
+.results.transition.visible .result .content {
+  width: 75%;
+  margin-right: 0;
+}

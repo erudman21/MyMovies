@@ -1,9 +1,10 @@
 import _ from "lodash";
 import React, { Component } from "react";
-import { Search } from "semantic-ui-react";
-import * as actions from "../actions";
+import { Search, Label } from "semantic-ui-react";
+import * as actions from "../../actions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+require("./search.css");
 
 class SearchBar extends Component {
   componentWillMount() {
@@ -24,30 +25,26 @@ class SearchBar extends Component {
   handleSearchChange = (e, { value }) => {
     this.setState({ isLoading: true, value, results: [] });
 
-    setTimeout(async () => {
-      if (value.length < 1) return this.resetComponent();
+    if (value.length < 1) return this.resetComponent();
 
-      const { loadMovieDataLight } = this.props;
+    const { loadMovieDataLight } = this.props;
 
-      loadMovieDataLight({ title: value }).then(() => {
-        const { movieData: { Response, Search } } = this.props;
+    loadMovieDataLight({ title: value }).then(() => {
+      const { movieData: { Response, Search } } = this.props;
 
-        if (Response === "True") {
-          this.setState({
-            results: _.map(Search, ({ Poster, Title, Year, imdbID }) => ({
-              key: imdbID,
-              title: Title,
-              image: Poster,
-              description: Year
-            }))
-          });
-        }
-      });
+      if (Response === "True") {
+        this.setState({
+          results: _.map(Search, ({ Poster, Title, Year, imdbID }) => ({
+            key: imdbID,
+            title: Title,
+            image: Poster,
+            description: Year
+          }))
+        });
+      }
+    });
 
-      this.setState({
-        isLoading: false
-      });
-    }, 500);
+    this.setState({ isLoading: false });
   };
 
   render() {
@@ -56,7 +53,7 @@ class SearchBar extends Component {
     return (
       <Search
         input={
-          <div className="ui input" style={{ padding: "20px" }}>
+          <div className="ui input" style={{ margin: "20px" }}>
             <input
               type="text"
               placeholder="Add a movie..."
