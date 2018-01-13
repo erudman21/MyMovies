@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Image } from "semantic-ui-react";
-import LoginModal from "../LoginModal";
+import LoginModal from "../modals/LoginModal";
 import "./style.css";
 
 class Landing extends Component {

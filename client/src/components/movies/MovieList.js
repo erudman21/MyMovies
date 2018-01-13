@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchMovies } from "../../actions";
-import { Image, Card, Divider, Header, Loader } from "semantic-ui-react";
+import { Image, Card, Divider, Header, Loader, Icon } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import RenderRatings from "./RenderRatings";
 import ReactStars from "react-stars";
 
 class MovieList extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
+    this.state = { loading: true, hoverName: "" };
   }
 
   componentDidMount = () => {
@@ -17,11 +18,44 @@ class MovieList extends Component {
     });
   };
 
+  mouseEnter = title => () => {
+    this.setState({ hoverName: title });
+  };
+
+  mouseLeave = () => {
+    this.setState({ hoverName: "" });
+  };
+
+  renderEditors = () => {
+    return (
+      <div>
+        <Icon
+          link
+          name="close"
+          style={{ position: "absolute", right: "2px", top: "2px" }}
+        />
+        <Link to="/movies/new">
+          <Icon
+            link
+            name="pencil"
+            style={{ position: "absolute", right: "2px", bottom: "5px" }}
+          />
+        </Link>
+      </div>
+    );
+  };
+
   renderMovies() {
-    return this.props.movies.reverse().map(movie => {
+    return this.props.movies.map(movie => {
       return (
-        <Card fluid key={movie.title}>
+        <Card
+          fluid
+          key={movie.title}
+          onMouseEnter={this.mouseEnter(movie.title)}
+          onMouseLeave={this.mouseLeave}
+        >
           <Card.Content>
+            {this.state.hoverName === movie.title ? this.renderEditors() : null}
             <Image
               floated="left"
               size="small"

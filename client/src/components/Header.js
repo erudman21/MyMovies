@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Menu, Button, Container, Image } from "semantic-ui-react";
 import SearchBar from "./searchbar/SearchBar";
-import LoginModal from "./LoginModal";
+import LoginModal from "./modals/LoginModal";
 
 class Header extends Component {
   constructor(props) {

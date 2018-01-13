@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Button, Modal, Icon, Header, Dimmer, Loader } from "semantic-ui-react";
+import { Button, Modal, Header, Dimmer, Loader } from "semantic-ui-react";
 
-class LoginModal extends Component {
+class DeleteModal extends Component {
   constructor(props) {
     super(props);
 
@@ -13,7 +13,7 @@ class LoginModal extends Component {
   startLoading() {
     this.setState({ loading: true });
 
-    setTimeout(() => this.setState({ loading: false }), 1500);
+    setTimeout(() => this.setState({ loading: false }), 2500);
   }
 
   render() {
@@ -33,27 +33,26 @@ class LoginModal extends Component {
           </Dimmer>
         ) : null}
         <Header style={{ textAlign: "center", borderRadius: "5px" }}>
-          Log in to see your own movies!
+          Are you sure you want to delete this movie?
         </Header>
-        <div style={{ width: "90%", marginLeft: "5%" }}>
+        <div style={{ width: "30%", marginLeft: "5%" }}>
           <Button
+            floated="left"
             onClick={() => this.startLoading()}
-            href="/auth/facebook"
-            color="facebook"
+            color="grey"
             fluid
             style={{ marginTop: "5%" }}
           >
-            <Icon name="facebook" /> Facebook
+            Nevermind!
           </Button>
           <br />
           <Button
             onClick={() => this.startLoading()}
-            href="/auth/google"
-            color="google plus"
+            color="red"
             fluid
             style={{ marginBottom: "5%" }}
           >
-            <Icon name="google plus" /> Google
+            Yes
           </Button>
         </div>
       </Modal>
@@ -61,4 +60,4 @@ class LoginModal extends Component {
   }
 }
 
-export default LoginModal;
+export default DeleteModal;
