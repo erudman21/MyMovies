@@ -13,7 +13,7 @@ class LoginModal extends Component {
   startLoading() {
     this.setState({ loading: true });
 
-    setTimeout(() => this.setState({ loading: false }), 2500);
+    setTimeout(() => this.setState({ loading: false }), 4000);
   }
 
   render() {

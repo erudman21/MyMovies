@@ -10,9 +10,6 @@ class Landing extends Component {
     this.state = {
       open: false
     };
-
-    this.show = this.show.bind(this);
-    this.close = this.close.bind(this);
   }
 
   show = () => this.setState({ open: true });

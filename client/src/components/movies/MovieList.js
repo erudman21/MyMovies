@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchMovies } from "../../actions";
-import { Image, Card, Divider, Header, Loader, Icon } from "semantic-ui-react";
-import { Link } from "react-router-dom";
-import RenderRatings from "./RenderRatings";
-import ReactStars from "react-stars";
+import { Card, Header, Loader } from "semantic-ui-react";
+import MovieCardContent from "./MovieCardContent";
+import DeleteModal from "../modals/DeleteModal";
 
 class MovieList extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true, hoverName: "" };
+    this.state = { loading: true, open: false };
   }
 
   componentDidMount = () => {
@@ -18,78 +17,23 @@ class MovieList extends Component {
     });
   };
 
-  mouseEnter = title => () => {
-    this.setState({ hoverName: title });
-  };
-
-  mouseLeave = () => {
-    this.setState({ hoverName: "" });
-  };
-
-  renderEditors = () => {
-    return (
-      <div>
-        <Icon
-          link
-          name="close"
-          style={{ position: "absolute", right: "2px", top: "2px" }}
-        />
-        <Link to="/movies/new">
-          <Icon
-            link
-            name="pencil"
-            style={{ position: "absolute", right: "2px", bottom: "5px" }}
-          />
-        </Link>
-      </div>
-    );
-  };
+  openModal = () => this.setState({ open: true });
+  closeModal = () => this.setState({ open: false });
 
   renderMovies() {
     return this.props.movies.map(movie => {
       return (
-        <Card
-          fluid
+        <MovieCardContent
           key={movie.title}
-          onMouseEnter={this.mouseEnter(movie.title)}
-          onMouseLeave={this.mouseLeave}
-        >
-          <Card.Content>
-            {this.state.hoverName === movie.title ? this.renderEditors() : null}
-            <Image
-              floated="left"
-              size="small"
-              src={movie.image}
-              style={{ margin: "auto 2% auto 0" }}
-            />
-            <Card.Header textAlign="center" style={{ fontSize: "200%" }}>
-              {movie.title}
-            </Card.Header>
-            <Divider hidden style={{ margin: ".5% 0" }} />
-            <Card.Meta style={{ fontSize: "15px" }}>
-              <div>Seen: {new Date(movie.dateSeen).toLocaleDateString()}</div>
-              <Divider hidden style={{ margin: "1% 0" }} />
-              Your Rating:
-              <ReactStars
-                count={10}
-                value={movie.personalRating}
-                edit={false}
-                half
-              />
-              <Divider hidden style={{ margin: "1% 0" }} />
-              Your Review:<br />
-              <div style={{ overflow: "auto", maxHeight: "93px" }}>
-                {movie.personalComments}
-              </div>
-            </Card.Meta>
-          </Card.Content>
-        </Card>
+          movie={movie}
+          openModal={this.openModal}
+        />
       );
     });
   }
 
   render() {
-    const { loading } = this.state;
+    const { loading, open } = this.state;
     const { movies: { length } } = this.props;
 
     if (loading)
@@ -115,6 +59,7 @@ class MovieList extends Component {
 
     return (
       <Card.Group itemsPerRow={2} style={{ margin: "auto -8%" }}>
+        <DeleteModal open={open} close={this.closeModal} />
         {this.renderMovies()}
       </Card.Group>
     );
