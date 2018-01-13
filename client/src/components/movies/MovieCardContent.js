@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Image, Card, Divider, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import DeleteModal from "../modals/DeleteModal";
 import ReactStars from "react-stars";
 
 class MovieCardContent extends Component {
@@ -36,7 +37,7 @@ class MovieCardContent extends Component {
   };
 
   render() {
-    const { movie } = this.props;
+    const { movie, open, closeModal } = this.props;
 
     return (
       <Card
@@ -72,6 +73,7 @@ class MovieCardContent extends Component {
             <div style={{ overflow: "auto", maxHeight: "93px" }}>
               {movie.personalComments}
             </div>
+            <DeleteModal open={open} close={closeModal} />
           </Card.Meta>
         </Card.Content>
       </Card>

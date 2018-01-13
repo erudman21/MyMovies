@@ -5,6 +5,23 @@ const mongoose = require("mongoose");
 const Movie = mongoose.model("movies");
 
 module.exports = app => {
+  app.post("/api/movies/delete", requireLogin, async (req, res) => {
+    console.log(req.body.title);
+    const deletedMovie = await Movie.find({
+      _user: req.user.id,
+      title: req.body.title
+    }).remove();
+
+    try {
+      const user = await req.user.save();
+
+      // Send back the updated user model
+      res.send(user);
+    } catch (err) {
+      res.status(422).send(err);
+    }
+  });
+
   app.get("/api/movies", requireLogin, async (req, res) => {
     const movies = await Movie.find({ _user: req.user.id });
     res.send(movies);

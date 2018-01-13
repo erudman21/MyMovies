@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { fetchMovies } from "../../actions";
 import { Card, Header, Loader } from "semantic-ui-react";
 import MovieCardContent from "./MovieCardContent";
-import DeleteModal from "../modals/DeleteModal";
 
 class MovieList extends Component {
   constructor(props) {
@@ -27,13 +26,15 @@ class MovieList extends Component {
           key={movie.title}
           movie={movie}
           openModal={this.openModal}
+          closeModal={this.closeModal}
+          open={this.state.open}
         />
       );
     });
   }
 
   render() {
-    const { loading, open } = this.state;
+    const { loading } = this.state;
     const { movies: { length } } = this.props;
 
     if (loading)
@@ -59,7 +60,6 @@ class MovieList extends Component {
 
     return (
       <Card.Group itemsPerRow={2} style={{ margin: "auto -8%" }}>
-        <DeleteModal open={open} close={this.closeModal} />
         {this.renderMovies()}
       </Card.Group>
     );

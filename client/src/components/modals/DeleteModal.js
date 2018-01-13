@@ -5,9 +5,7 @@ class DeleteModal extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      loading: false
-    };
+    this.state = { loading: false };
   }
 
   startLoading() {
@@ -38,7 +36,7 @@ class DeleteModal extends Component {
         <div>
           <Button
             floated="left"
-            onClick={() => this.startLoading()}
+            onClick={close}
             color="grey"
             style={{ width: "40%", margin: "5%" }}
           >
@@ -46,7 +44,7 @@ class DeleteModal extends Component {
           </Button>
           <Button
             floated="right"
-            onClick={() => this.startLoading()}
+            onClick={this.startLoading}
             color="red"
             style={{ width: "40%", margin: "5%" }}
           >

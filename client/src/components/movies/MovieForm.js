@@ -16,11 +16,6 @@ class MovieForm extends Component {
       personalRating: 0,
       personalComments: ""
     };
-
-    this.onDateChange = this.onDateChange.bind(this);
-    this.onRatingChange = this.onRatingChange.bind(this);
-    this.onCommentsChange = this.onCommentsChange.bind(this);
-    this.submit = this.submit.bind(this);
   }
 
   onDateChange = date => this.setState({ dateSeen: date });
@@ -28,8 +23,8 @@ class MovieForm extends Component {
   onCommentsChange = (e, { value }) =>
     this.setState({ personalComments: value });
 
-  submit(e) {
-    const { finalAddMovie, history, movieData } = this.props;
+  submit = () => {
+    const { addMovie, history, movieData } = this.props;
     const { dateSeen, personalRating, personalComments } = this.state;
 
     const values = {
@@ -46,8 +41,8 @@ class MovieForm extends Component {
       personalComments
     };
 
-    finalAddMovie(values, history);
-  }
+    addMovie(values, history);
+  };
 
   renderPersonalFields() {
     const { dateSeen, personalRating, personalComments } = this.state;
