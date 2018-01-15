@@ -6,7 +6,6 @@ const Movie = mongoose.model("movies");
 
 module.exports = app => {
   app.post("/api/movies/delete", requireLogin, async (req, res) => {
-    console.log(req.body.title);
     const deletedMovie = await Movie.find({
       _user: req.user.id,
       title: req.body.title

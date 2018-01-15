@@ -4,7 +4,7 @@ import { Menu, Button, Container, Image } from "semantic-ui-react";
 import SearchBar from "./searchbar/SearchBar";
 import LoginModal from "./modals/LoginModal";
 
-class Header extends Component {
+class SiteHeader extends Component {
   constructor(props) {
     super(props);
 
@@ -77,4 +77,4 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(SiteHeader);

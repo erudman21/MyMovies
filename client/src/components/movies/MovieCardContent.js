@@ -37,7 +37,7 @@ class MovieCardContent extends Component {
   };
 
   render() {
-    const { movie, open, closeModal } = this.props;
+    const { movie, open, closeModal, handleClick, deleteClicked } = this.props;
 
     return (
       <Card
@@ -46,7 +46,7 @@ class MovieCardContent extends Component {
         onMouseEnter={this.openEdits}
         onMouseLeave={this.closeEdits}
       >
-        <Card.Content>
+        <Card.Content onClick={() => handleClick(movie)}>
           {this.state.hover ? this.renderEditors() : null}
           <Image
             floated="left"
@@ -73,7 +73,11 @@ class MovieCardContent extends Component {
             <div style={{ overflow: "auto", maxHeight: "93px" }}>
               {movie.personalComments}
             </div>
-            <DeleteModal open={open} close={closeModal} />
+            <DeleteModal
+              open={open}
+              close={closeModal}
+              deleteClicked={deleteClicked}
+            />
           </Card.Meta>
         </Card.Content>
       </Card>

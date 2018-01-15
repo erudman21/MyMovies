@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import MovieForm from "./MovieForm";
-import Header from "../Header";
+import SiteHeader from "../SiteHeader";
 
 class MovieNew extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <SiteHeader />
         <MovieForm />
       </div>
     );

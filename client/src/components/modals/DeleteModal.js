@@ -8,14 +8,14 @@ class DeleteModal extends Component {
     this.state = { loading: false };
   }
 
-  startLoading() {
+  startLoading = () => {
     this.setState({ loading: true });
 
     setTimeout(() => this.setState({ loading: false }), 2500);
-  }
+  };
 
   render() {
-    const { open, close } = this.props;
+    const { open, close, deleteClicked } = this.props;
     const { loading } = this.state;
 
     return (
@@ -44,7 +44,7 @@ class DeleteModal extends Component {
           </Button>
           <Button
             floated="right"
-            onClick={this.startLoading}
+            onClick={deleteClicked}
             color="red"
             style={{ width: "40%", margin: "5%" }}
           >

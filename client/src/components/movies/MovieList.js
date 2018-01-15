@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchMovies } from "../../actions";
+import { fetchMovies, deleteMovie } from "../../actions";
 import { Card, Header, Loader } from "semantic-ui-react";
 import MovieCardContent from "./MovieCardContent";
 
 class MovieList extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true, open: false };
+    this.state = { loading: true, open: false, clicked: null };
   }
 
   componentDidMount = () => {
@@ -19,6 +19,21 @@ class MovieList extends Component {
   openModal = () => this.setState({ open: true });
   closeModal = () => this.setState({ open: false });
 
+  handleClick = movie => {
+    this.setState({ clicked: movie });
+  };
+
+  deleteClicked = () => {
+    const { deleteMovie } = this.props;
+    const { clicked } = this.state;
+
+    if (clicked != null) {
+      deleteMovie({ title: clicked.title }).then(() => {
+        this.setState({ open: false });
+      });
+    }
+  };
+
   renderMovies() {
     return this.props.movies.map(movie => {
       return (
@@ -28,6 +43,8 @@ class MovieList extends Component {
           openModal={this.openModal}
           closeModal={this.closeModal}
           open={this.state.open}
+          handleClick={this.handleClick}
+          deleteClicked={this.deleteClicked}
         />
       );
     });
@@ -70,4 +87,6 @@ function mapStateToProps({ fetchMovies }) {
   return { movies: fetchMovies };
 }
 
-export default connect(mapStateToProps, { fetchMovies })(MovieList);
+export default connect(mapStateToProps, { fetchMovies, deleteMovie })(
+  MovieList
+);
