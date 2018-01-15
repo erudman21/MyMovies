@@ -24,12 +24,15 @@ class MovieList extends Component {
   };
 
   deleteClicked = () => {
-    const { deleteMovie } = this.props;
+    const { deleteMovie, fetchMovies } = this.props;
     const { clicked } = this.state;
 
     if (clicked != null) {
+      this.setState({ loading: true });
       deleteMovie({ title: clicked.title }).then(() => {
-        this.setState({ open: false });
+        fetchMovies().then(() =>
+          this.setState({ open: false, loading: false })
+        );
       });
     }
   };
