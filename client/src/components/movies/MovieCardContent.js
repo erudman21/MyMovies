@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Image, Card, Divider, Icon } from "semantic-ui-react";
-import { Link } from "react-router-dom";
 import DeleteModal from "../modals/DeleteModal";
 import ReactStars from "react-stars";
 
@@ -25,13 +24,6 @@ class MovieCardContent extends Component {
           name="close"
           style={{ position: "absolute", right: "2px", top: "2px" }}
         />
-        <Link to="/movies/new">
-          <Icon
-            link
-            name="pencil"
-            style={{ position: "absolute", right: "2px", bottom: "5px" }}
-          />
-        </Link>
       </div>
     );
   };
