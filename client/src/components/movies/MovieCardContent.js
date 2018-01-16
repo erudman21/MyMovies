@@ -62,7 +62,13 @@ class MovieCardContent extends Component {
             />
             <Divider hidden style={{ margin: "1% 0" }} />
             Your Review:<br />
-            <div style={{ overflow: "auto", maxHeight: "93px" }}>
+            <div
+              style={{
+                maxHeight: "84px",
+                wordBreak: "break-all",
+                overflow: "auto"
+              }}
+            >
               {movie.personalComments}
             </div>
             <DeleteModal
