@@ -31,11 +31,8 @@ class MovieForm extends Component {
       title: movieData.Title,
       image: movieData.Poster,
       officialRatings: movieData.Ratings,
-      runtime: movieData.Runtime,
-      genre: movieData.Genre,
       year: movieData.Year,
       director: movieData.Director,
-      plot: movieData.Plot,
       dateSeen: new Date(dateSeen._d),
       personalRating,
       personalComments

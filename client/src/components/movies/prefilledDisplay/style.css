@@ -25,3 +25,8 @@
   overflow: auto;
   clear: both;
 }
+
+.movie-plot-container {
+  overflow: auto;
+  max-height: 100px;
+}

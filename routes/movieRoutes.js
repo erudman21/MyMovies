@@ -23,6 +23,7 @@ module.exports = app => {
 
   app.get("/api/movies", requireLogin, async (req, res) => {
     const movies = await Movie.find({ _user: req.user.id });
+    movies.reverse();
     res.send(movies);
   });
 
@@ -31,11 +32,8 @@ module.exports = app => {
       title,
       image,
       officialRatings,
-      runtime,
-      genre,
       year,
       director,
-      plot,
       dateSeen,
       personalRating,
       personalComments
@@ -46,11 +44,8 @@ module.exports = app => {
       title,
       image,
       officialRatings,
-      runtime,
-      genre,
       year,
       director,
-      plot,
       dateSeen,
       personalRating,
       personalComments,
