@@ -2,6 +2,8 @@ import React from "react";
 import _ from "lodash";
 import { List } from "semantic-ui-react";
 
+// Format the official ratings for a movie into a horizontal list
+// and shorten imdb
 const RenderRatings = ({ ratings }) => {
   const ratingsList = _.map(ratings, ({ Source, Value }) => {
     const source = Source === "Internet Movie Database" ? "IMDb" : Source;

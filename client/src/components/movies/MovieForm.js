@@ -38,6 +38,8 @@ class MovieForm extends Component {
       personalComments
     };
 
+    // Add the movie to the user's collection with a combination of personal
+    // fields and automatically filled fields from the movie's data
     addMovie(values, history);
   };
 

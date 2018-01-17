@@ -26,7 +26,8 @@
   clear: both;
 }
 
-.movie-plot-container {
+.movie-plot-display {
+  margin-top: 0;
   overflow: auto;
   max-height: 100px;
 }

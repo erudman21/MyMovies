@@ -39,7 +39,7 @@ passport.use(
   )
 );
 
-// Facebook authenticate
+// Facebook auth
 passport.use(
   new FacebookStrategy(
     {

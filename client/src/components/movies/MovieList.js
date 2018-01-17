@@ -7,6 +7,8 @@ import MovieCardContent from "./MovieCardContent";
 class MovieList extends Component {
   constructor(props) {
     super(props);
+    // Loading is initially set to true to allow for fetchmovies to return
+    // and not immediately cause a re-render
     this.state = { loading: true, open: false, clicked: null };
   }
 
@@ -23,6 +25,7 @@ class MovieList extends Component {
     this.setState({ clicked: movie });
   };
 
+  // Delete whatever clicked is set to in state
   deleteClicked = () => {
     const { deleteMovie, fetchMovies } = this.props;
     const { clicked } = this.state;
@@ -30,6 +33,7 @@ class MovieList extends Component {
     if (clicked != null) {
       this.setState({ loading: true });
       deleteMovie({ title: clicked.title }).then(() => {
+        // Fetch movies again to update and re-render the user's list
         fetchMovies().then(() =>
           this.setState({ open: false, loading: false })
         );
@@ -37,6 +41,7 @@ class MovieList extends Component {
     }
   };
 
+  // Render a semantic-ui card for each movie in the user's collection
   renderMovies() {
     return this.props.movies.map(movie => {
       return (

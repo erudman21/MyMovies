@@ -12,6 +12,7 @@ class Landing extends Component {
     };
   }
 
+  // Control the state of the login modal
   show = () => this.setState({ open: true });
   close = () => this.setState({ open: false });
 

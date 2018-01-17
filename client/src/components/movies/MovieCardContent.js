@@ -13,7 +13,9 @@ class MovieCardContent extends Component {
   openEdits = () => this.setState({ hover: true });
   closeEdits = () => this.setState({ hover: false });
 
-  renderEditors = () => {
+  // When the user hovers over a card, an x icon will appear to provide the
+  // option to delete the movie that is hovered over
+  renderClose = () => {
     const { openModal } = this.props;
 
     return (
@@ -39,7 +41,7 @@ class MovieCardContent extends Component {
         onMouseLeave={this.closeEdits}
       >
         <Card.Content onClick={() => handleClick(movie)}>
-          {this.state.hover ? this.renderEditors() : null}
+          {this.state.hover ? this.renderClose() : null}
           <Image
             floated="left"
             size="small"

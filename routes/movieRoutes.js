@@ -23,6 +23,7 @@ module.exports = app => {
 
   app.get("/api/movies", requireLogin, async (req, res) => {
     const movies = await Movie.find({ _user: req.user.id });
+    // Reverse movies so newly added movies appear first
     movies.reverse();
     res.send(movies);
   });

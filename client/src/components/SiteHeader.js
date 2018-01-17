@@ -11,11 +11,9 @@ class SiteHeader extends Component {
     this.state = {
       open: false
     };
-
-    this.show = this.show.bind(this);
-    this.close = this.close.bind(this);
   }
 
+  // control state of login modal
   show = () => this.setState({ open: true });
   close = () => this.setState({ open: false });
 

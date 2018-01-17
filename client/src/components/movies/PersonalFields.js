@@ -4,6 +4,7 @@ import { Input, Form, TextArea } from "semantic-ui-react";
 import ReactStars from "react-stars";
 import "react-datepicker/dist/react-datepicker.css";
 
+// Fields that the user can personalize on new movie screen
 const PersonalFields = ({
   dateSeen,
   onDateChange,

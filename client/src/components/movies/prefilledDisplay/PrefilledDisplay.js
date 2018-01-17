@@ -63,9 +63,9 @@ const PrefilledDisplay = ({ movieData }) => {
             </List.Item>
           </List>
         </Container>
-        <Container className="movie-plot-container">
-          <Header style={headerStyle}>Plot</Header>
-          {Plot}
+        <Container>
+          <Header style={{ fontSize: "90%", marginBottom: "0" }}>Plot</Header>
+          <div className="movie-plot-display">{Plot}</div>
         </Container>
       </Container>
     </Segment>
