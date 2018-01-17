@@ -24,7 +24,7 @@ class MovieCardContent extends Component {
           onClick={openModal}
           link
           name="close"
-          style={{ position: "absolute", right: "2px", top: "2px" }}
+          style={{ position: "absolute", right: "-3px", top: "-1px" }}
         />
       </div>
     );
@@ -35,7 +35,6 @@ class MovieCardContent extends Component {
 
     return (
       <Card
-        fluid
         key={movie.title}
         onMouseEnter={this.openEdits}
         onMouseLeave={this.closeEdits}
@@ -46,39 +45,45 @@ class MovieCardContent extends Component {
             floated="left"
             size="small"
             src={movie.image}
-            style={{ margin: "auto 2% auto 0" }}
+            style={{ margin: "auto 2% auto 0", height: "30vh" }}
           />
-          <Card.Header textAlign="center" style={{ fontSize: "200%" }}>
-            {movie.title}
-          </Card.Header>
-          <Divider hidden style={{ margin: ".5% 0" }} />
-          <Card.Meta style={{ fontSize: "15px" }}>
-            <div>Seen: {new Date(movie.dateSeen).toLocaleDateString()}</div>
-            <Divider hidden style={{ margin: "1% 0" }} />
-            Your Rating:
-            <ReactStars
-              count={10}
-              value={movie.personalRating}
-              edit={false}
-              half
-            />
-            <Divider hidden style={{ margin: "1% 0" }} />
-            Your Review:<br />
-            <div
+          <div style={{ maxHeight: "30vh", overflow: "auto" }}>
+            <Card.Header
+              textAlign="center"
               style={{
-                maxHeight: "84px",
-                wordBreak: "break-all",
-                overflow: "auto"
+                fontSize: "150%",
+                lineHeight: "110%"
               }}
             >
-              {movie.personalComments}
-            </div>
-            <DeleteModal
-              open={open}
-              close={closeModal}
-              deleteClicked={deleteClicked}
-            />
-          </Card.Meta>
+              <b>{movie.title}</b>
+            </Card.Header>
+            <Divider hidden style={{ margin: ".5% 0" }} />
+            <Card.Meta style={{ fontSize: "15px" }}>
+              <div>Seen: {new Date(movie.dateSeen).toLocaleDateString()}</div>
+              <Divider hidden style={{ margin: "1% 0" }} />
+              Your Rating:
+              <ReactStars
+                count={10}
+                value={movie.personalRating}
+                edit={false}
+                half
+              />
+              <Divider hidden style={{ margin: "1% 0" }} />
+              Your Review:<br />
+              <div
+                style={{
+                  wordBreak: "break-all"
+                }}
+              >
+                {movie.personalComments}
+              </div>
+              <DeleteModal
+                open={open}
+                close={closeModal}
+                deleteClicked={deleteClicked}
+              />
+            </Card.Meta>
+          </div>
         </Card.Content>
       </Card>
     );
