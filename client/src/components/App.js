@@ -5,7 +5,7 @@ import * as actions from '../actions';
 
 import Landing from './landing/Landing';
 import Dashboard from './Dashboard';
-import MovieNew from './movies/MovieNew';
+import MovieNew from './movies/form/MovieNew';
 
 class App extends Component {
 	componentDidMount() {

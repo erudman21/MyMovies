@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchMovies, deleteMovie } from '../../actions';
-import { Card, Header, Loader } from 'semantic-ui-react';
+import { Header, Container } from 'semantic-ui-react';
 import MovieCardContent from './MovieCardContent';
 
 class MovieList extends Component {
@@ -9,14 +7,8 @@ class MovieList extends Component {
 		super(props);
 		// Loading is initially set to true to allow for fetchmovies to return
 		// and not immediately cause a re-render
-		this.state = { loading: true, open: false, clicked: null };
+		this.state = { open: false, clicked: null };
 	}
-
-	componentDidMount = () => {
-		this.props.fetchMovies().then(() => {
-			this.setState({ loading: false });
-		});
-	};
 
 	openModal = () => this.setState({ open: true });
 	closeModal = () => this.setState({ open: false });
@@ -25,19 +17,11 @@ class MovieList extends Component {
 		this.setState({ clicked: movie });
 	};
 
-	// Delete whatever clicked is set to in state
 	deleteClicked = () => {
-		const { deleteMovie, fetchMovies } = this.props;
 		const { clicked } = this.state;
 
 		if (clicked != null) {
-			this.setState({ loading: true });
-			deleteMovie({ title: clicked.title }).then(() => {
-				// Fetch movies again to update and re-render the user's list
-				fetchMovies().then(() =>
-					this.setState({ open: false, loading: false })
-				);
-			});
+			this.props.delClicked(clicked.title);
 		}
 	};
 
@@ -59,46 +43,31 @@ class MovieList extends Component {
 	}
 
 	render() {
-		const { loading } = this.state;
 		const { movies: { length } } = this.props;
 
-		if (loading)
-			return (
-				<Loader active inline="centered" style={{ marginTop: '20%' }} />
-			);
+		let content = this.renderMovies();
 
 		if (length === 0) {
-			const header = "Oh no, you don't have any movies!";
-			return (
+			const header = "You don't have any movies!";
+			content = (
 				<Header
 					disabled
 					textAlign="center"
 					style={{
 						fontSize: '250%',
-						marginTop: '20%'
+						marginTop: '30%'
 					}}>
 					{header}
 					<br />
-					<p>
-						Use the search bar to look for movies to add to our
-						journal!
+					<p style={{ fontSize: '20px' }}>
+						Search for movies to add to your journal!
 					</p>
 				</Header>
 			);
 		}
 
-		return (
-			<Card.Group itemsPerRow={2} style={{ margin: 'auto -8%' }}>
-				{this.renderMovies()}
-			</Card.Group>
-		);
+		return <Container style={{ width: '45vw' }}>{content}</Container>;
 	}
 }
 
-function mapStateToProps({ fetchMovies }) {
-	return { movies: fetchMovies };
-}
-
-export default connect(mapStateToProps, { fetchMovies, deleteMovie })(
-	MovieList
-);
+export default MovieList;

@@ -1,6 +1,6 @@
 import React from 'react';
 import MovieForm from './MovieForm';
-import SiteHeader from '../SiteHeader';
+import SiteHeader from '../../SiteHeader';
 
 const MovieNew = () => {
 	return (

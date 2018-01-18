@@ -41,6 +41,7 @@ class MovieCardContent extends Component {
 
 		return (
 			<Card
+				fluid
 				key={movie.title}
 				onMouseEnter={this.openEdits}
 				onMouseLeave={this.closeEdits}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, Header, List, Container, Segment } from 'semantic-ui-react';
-import RenderRatings from '../RenderRatings';
+import RenderRatings from '../../RenderRatings';
 require('./style.css');
 
 const headerStyle = {

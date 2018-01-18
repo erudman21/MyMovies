@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, Container } from 'semantic-ui-react';
-import * as actions from '../../actions';
+import * as actions from '../../../actions';
 import PrefilledDisplay from './prefilledDisplay/PrefilledDisplay';
 import PersonalFields from './PersonalFields';
 import moment from 'moment';
