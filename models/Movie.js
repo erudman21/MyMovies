@@ -7,7 +7,7 @@ const movieSchema = new Schema({
 	officialRatings: [{ Source: String, Value: String }],
 	year: String,
 	director: String,
-	recs: [String],
+	recs: [{ name: String, link: String }],
 	dateSeen: Date,
 	personalRating: Number,
 	personalComments: String,

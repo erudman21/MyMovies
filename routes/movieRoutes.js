@@ -45,17 +45,17 @@ module.exports = app => {
 		const tdaw = new TDAW({ apiKey: keys.tdKey });
 		let recs = [];
 
-		try {
-			let temp = await tdaw.getRecommendations({
-				q: title,
-				type: 'movies'
-			});
+		const temp = await tdaw.getRecommendations({
+			q: title,
+			type: 'movies',
+			verbose: '1'
+		});
 
-			for (var i = 0; i < 5; i++) {
-				recs[i] = temp[i].Name;
-			}
-		} catch (e) {
-			console.log(e);
+		for (var i = 0; i < 5; i++) {
+			recs[i] = {
+				name: temp[i].Name,
+				link: temp[i].yUrl
+			};
 		}
 
 		// Create a new movie object with all of the appropriate fields
