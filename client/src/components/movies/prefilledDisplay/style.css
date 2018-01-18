@@ -1,33 +1,33 @@
 .main-segment-prefilled {
-  display: flex;
-  margin-bottom: 1%;
+	display: flex;
+	margin-bottom: 1%;
 }
 
 .movie-info-container-wrapper {
-  display: flex;
-  align-items: center;
-  overflow: auto;
+	display: flex;
+	align-items: center;
+	overflow: auto;
 }
 
 .movie-image-prefilled {
-  float: left;
-  margin-right: 2%;
-  align-self: center;
+	float: left;
+	margin-right: 2%;
+	align-self: center;
 }
 
 .movie-title-header List {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .movie-info-container {
-  padding-top: 1%;
-  overflow: auto;
-  clear: both;
+	padding-top: 1%;
+	overflow: auto;
+	clear: both;
 }
 
 .movie-plot-display {
-  margin-top: 0;
-  overflow: auto;
-  max-height: 100px;
+	margin-top: 0;
+	overflow: auto;
+	max-height: 100px;
 }

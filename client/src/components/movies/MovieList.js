@@ -1,100 +1,104 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchMovies, deleteMovie } from "../../actions";
-import { Card, Header, Loader } from "semantic-ui-react";
-import MovieCardContent from "./MovieCardContent";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchMovies, deleteMovie } from '../../actions';
+import { Card, Header, Loader } from 'semantic-ui-react';
+import MovieCardContent from './MovieCardContent';
 
 class MovieList extends Component {
-  constructor(props) {
-    super(props);
-    // Loading is initially set to true to allow for fetchmovies to return
-    // and not immediately cause a re-render
-    this.state = { loading: true, open: false, clicked: null };
-  }
+	constructor(props) {
+		super(props);
+		// Loading is initially set to true to allow for fetchmovies to return
+		// and not immediately cause a re-render
+		this.state = { loading: true, open: false, clicked: null };
+	}
 
-  componentDidMount = () => {
-    this.props.fetchMovies().then(() => {
-      this.setState({ loading: false });
-    });
-  };
+	componentDidMount = () => {
+		this.props.fetchMovies().then(() => {
+			this.setState({ loading: false });
+		});
+	};
 
-  openModal = () => this.setState({ open: true });
-  closeModal = () => this.setState({ open: false });
+	openModal = () => this.setState({ open: true });
+	closeModal = () => this.setState({ open: false });
 
-  handleClick = movie => {
-    this.setState({ clicked: movie });
-  };
+	handleClick = movie => {
+		this.setState({ clicked: movie });
+	};
 
-  // Delete whatever clicked is set to in state
-  deleteClicked = () => {
-    const { deleteMovie, fetchMovies } = this.props;
-    const { clicked } = this.state;
+	// Delete whatever clicked is set to in state
+	deleteClicked = () => {
+		const { deleteMovie, fetchMovies } = this.props;
+		const { clicked } = this.state;
 
-    if (clicked != null) {
-      this.setState({ loading: true });
-      deleteMovie({ title: clicked.title }).then(() => {
-        // Fetch movies again to update and re-render the user's list
-        fetchMovies().then(() =>
-          this.setState({ open: false, loading: false })
-        );
-      });
-    }
-  };
+		if (clicked != null) {
+			this.setState({ loading: true });
+			deleteMovie({ title: clicked.title }).then(() => {
+				// Fetch movies again to update and re-render the user's list
+				fetchMovies().then(() =>
+					this.setState({ open: false, loading: false })
+				);
+			});
+		}
+	};
 
-  // Render a semantic-ui card for each movie in the user's collection
-  renderMovies() {
-    return this.props.movies.map(movie => {
-      return (
-        <MovieCardContent
-          key={movie.title}
-          movie={movie}
-          openModal={this.openModal}
-          closeModal={this.closeModal}
-          open={this.state.open}
-          handleClick={this.handleClick}
-          deleteClicked={this.deleteClicked}
-        />
-      );
-    });
-  }
+	// Render a semantic-ui card for each movie in the user's collection
+	renderMovies() {
+		return this.props.movies.map(movie => {
+			return (
+				<MovieCardContent
+					key={movie.title}
+					movie={movie}
+					openModal={this.openModal}
+					closeModal={this.closeModal}
+					open={this.state.open}
+					handleClick={this.handleClick}
+					deleteClicked={this.deleteClicked}
+				/>
+			);
+		});
+	}
 
-  render() {
-    const { loading } = this.state;
-    const { movies: { length } } = this.props;
+	render() {
+		const { loading } = this.state;
+		const { movies: { length } } = this.props;
 
-    if (loading)
-      return <Loader active inline="centered" style={{ marginTop: "20%" }} />;
+		if (loading)
+			return (
+				<Loader active inline="centered" style={{ marginTop: '20%' }} />
+			);
 
-    if (length === 0) {
-      const header = "Oh no, you don't have any movies!";
-      return (
-        <Header
-          disabled
-          textAlign="center"
-          style={{
-            fontSize: "250%",
-            marginTop: "20%"
-          }}
-        >
-          {header}
-          <br />
-          <p>Use the search bar to look for movies to add to our journal!</p>
-        </Header>
-      );
-    }
+		if (length === 0) {
+			const header = "Oh no, you don't have any movies!";
+			return (
+				<Header
+					disabled
+					textAlign="center"
+					style={{
+						fontSize: '250%',
+						marginTop: '20%'
+					}}>
+					{header}
+					<br />
+					<p>
+						Use the search bar to look for movies to add to our
+						journal!
+					</p>
+				</Header>
+			);
+		}
 
-    return (
-      <Card.Group itemsPerRow={2} style={{ margin: "auto -8%" }}>
-        {this.renderMovies()}
-      </Card.Group>
-    );
-  }
+		return (
+			<Card.Group itemsPerRow={2} style={{ margin: 'auto -8%' }}>
+				{this.renderMovies()}
+			</Card.Group>
+		);
+	}
 }
 
 function mapStateToProps({ fetchMovies }) {
-  return { movies: fetchMovies };
+	return { movies: fetchMovies };
 }
 
 export default connect(mapStateToProps, { fetchMovies, deleteMovie })(
-  MovieList
+	MovieList
 );
