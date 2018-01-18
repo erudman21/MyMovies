@@ -1,7 +1,8 @@
 const Path = require('path-parser');
 const requireLogin = require('../middlewares/requireLogin');
 const mongoose = require('mongoose');
-const tdaw = require('tdaw');
+const TDAW = require('tdaw');
+const keys = require('../config/keys');
 
 const Movie = mongoose.model('movies');
 
@@ -41,6 +42,22 @@ module.exports = app => {
 			personalComments
 		} = req.body;
 
+		const tdaw = new TDAW({ apiKey: keys.tdKey });
+		let recs = [];
+
+		try {
+			let temp = await tdaw.getRecommendations({
+				q: title,
+				type: 'movies'
+			});
+
+			for (var i = 0; i < 5; i++) {
+				recs[i] = temp[i].Name;
+			}
+		} catch (e) {
+			console.log(e);
+		}
+
 		// Create a new movie object with all of the appropriate fields
 		const movie = new Movie({
 			title,
@@ -48,6 +65,7 @@ module.exports = app => {
 			officialRatings,
 			year,
 			director,
+			recs,
 			dateSeen,
 			personalRating,
 			personalComments,

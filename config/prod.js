@@ -5,5 +5,6 @@ module.exports = {
 	cookieKey: process.env.COOKIE_KEY,
 	facebookID: process.env.FB_ID,
 	facebookSecret: process.env.FB_SECRET,
-	omdbKey: process.env.OMDB_KEY
+	omdbKey: process.env.OMDB_KEY,
+	tdKey: process.env.TD_KEY
 };
