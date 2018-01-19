@@ -44,7 +44,8 @@ class MovieCardContent extends Component {
 				fluid
 				key={movie.title}
 				onMouseEnter={this.openEdits}
-				onMouseLeave={this.closeEdits}>
+				onMouseLeave={this.closeEdits}
+				style={{ margin: '0 auto 2% auto', borderRadius: '0' }}>
 				<Card.Content onClick={() => handleClick(movie)}>
 					{this.state.hover ? this.renderClose() : null}
 					<Image

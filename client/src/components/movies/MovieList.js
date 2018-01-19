@@ -66,7 +66,15 @@ class MovieList extends Component {
 			);
 		}
 
-		return <Container style={{ width: '45vw' }}>{content}</Container>;
+		return (
+			<Container
+				style={{
+					width: '45vw',
+					display: 'inline-block'
+				}}>
+				{content}
+			</Container>
+		);
 	}
 }
 

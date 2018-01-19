@@ -4,13 +4,15 @@ import MovieList from './movies/MovieList';
 import { fetchMovies, deleteMovie } from '../actions/index';
 import SiteHeader from './SiteHeader';
 import { Container, Loader } from 'semantic-ui-react';
+import SuggestionList from './movies/SuggestionList';
 
 class Dashboard extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			loading: true
+			loading: true,
+			movies: []
 		};
 	}
 
@@ -42,23 +44,24 @@ class Dashboard extends Component {
 					backgroundColor: '#f7f7f4',
 					position: 'absolute',
 					width: '100%',
-					height: '100%'
+					minHeight: '100%'
 				}}>
 				<SiteHeader />
-				<Container>
-					{loading ? (
-						<Loader
-							active
-							inline="centered"
-							style={{ marginTop: '20%' }}
-						/>
-					) : (
+				{loading ? (
+					<Loader
+						active
+						inline="centered"
+						style={{ marginTop: '20%' }}
+					/>
+				) : (
+					<Container>
+						<SuggestionList movies={movies} />
 						<MovieList
 							movies={movies}
 							delClicked={this.delClicked}
 						/>
-					)}
-				</Container>
+					</Container>
+				)}
 			</div>
 		);
 	}
