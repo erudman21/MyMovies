@@ -5,19 +5,24 @@ const TDAW = require('tdaw');
 const keys = require('../config/keys');
 
 const Movie = mongoose.model('movies');
+const User = mongoose.model('users');
 
 module.exports = app => {
 	app.post('/api/movies/delete', requireLogin, async (req, res) => {
-		const deletedMovie = await Movie.find({
-			_user: req.user.id,
-			title: req.body.title
-		}).remove();
-
 		try {
-			const user = await req.user.save();
+			Movie.find({
+				_user: req.user.id,
+				title: req.body.title
+			})
+				.remove()
+				.exec();
 
-			// Send back the updated user model
-			res.send(user);
+			User.findById(req.user._id, (e, user) => {
+				user.numMovies = user.numMovies - 1;
+				user.save((e, updatedUser) => {
+					res.send(updatedUser);
+				});
+			});
 		} catch (err) {
 			res.status(422).send(err);
 		}
@@ -75,10 +80,13 @@ module.exports = app => {
 		try {
 			// Save the movie to the user model
 			await movie.save();
-			const user = await req.user.save();
 
-			// Send back the updated user model
-			res.send(user);
+			User.findById(req.user._id, (e, user) => {
+				user.numMovies = user.numMovies + 1;
+				user.save((e, updatedUser) => {
+					res.send(updatedUser);
+				});
+			});
 		} catch (err) {
 			res.status(422).send(err);
 		}

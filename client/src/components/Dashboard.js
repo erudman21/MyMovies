@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MovieList from './movies/MovieList';
-import { fetchMovies, deleteMovie } from '../actions/index';
+import * as actions from '../actions';
 import SiteHeader from './SiteHeader';
 import { Container, Loader } from 'semantic-ui-react';
-import SuggestionList from './movies/SuggestionList';
+import SuggestionList from './user/SuggestionList';
+import ProfileDisplay from './user/ProfileDisplay';
 
 class Dashboard extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			loading: true,
-			movies: []
+			loading: true
 		};
 	}
 
@@ -29,13 +29,14 @@ class Dashboard extends Component {
 	};
 
 	componentDidMount = () => {
+		this.props.fetchUser();
 		this.props.fetchMovies().then(() => {
 			this.setState({ loading: false });
 		});
 	};
 
 	render() {
-		const { movies } = this.props;
+		const { movies, auth } = this.props;
 		const { loading } = this.state;
 
 		return (
@@ -55,7 +56,16 @@ class Dashboard extends Component {
 					/>
 				) : (
 					<Container>
-						<SuggestionList movies={movies} />
+						<Container
+							style={{
+								float: 'left',
+								width: '18%',
+								paddingRight: '15px',
+								display: 'inline-block'
+							}}>
+							<ProfileDisplay user={auth} />
+							<SuggestionList movies={movies} />
+						</Container>
 						<MovieList
 							movies={movies}
 							delClicked={this.delClicked}
@@ -67,10 +77,8 @@ class Dashboard extends Component {
 	}
 }
 
-function mapStateToProps({ fetchMovies }) {
-	return { movies: fetchMovies };
+function mapStateToProps({ fetchMovies, auth }) {
+	return { movies: fetchMovies, auth };
 }
 
-export default connect(mapStateToProps, { fetchMovies, deleteMovie })(
-	Dashboard
-);
+export default connect(mapStateToProps, actions)(Dashboard);
