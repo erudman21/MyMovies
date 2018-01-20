@@ -21,7 +21,7 @@ class MovieList extends Component {
 		const { clicked } = this.state;
 
 		if (clicked != null) {
-			this.props.delClicked(clicked.title);
+			this.props.delClicked(clicked);
 		}
 	};
 
@@ -67,7 +67,7 @@ class MovieList extends Component {
 		}
 
 		return (
-			<Container style={{ width: '45vw', display: 'inline-block' }}>
+			<Container style={{ width: '50vw', display: 'inline-block' }}>
 				{content}
 			</Container>
 		);

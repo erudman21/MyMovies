@@ -26,8 +26,8 @@ export const fetchMovies = () => async dispatch => {
 };
 
 // Delete the movie with title from the user's list of movies
-export const deleteMovie = title => async dispatch => {
-	const res = await axios.post('/api/movies/delete', title);
+export const deleteMovie = movie => async dispatch => {
+	const res = await axios.post('/api/movies/delete', movie);
 	dispatch({ type: FETCH_USER, payload: res.data });
 };
 

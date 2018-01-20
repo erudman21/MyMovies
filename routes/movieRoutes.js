@@ -12,13 +12,19 @@ module.exports = app => {
 		try {
 			Movie.find({
 				_user: req.user.id,
-				title: req.body.title
+				title: req.body.movie.title
 			})
 				.remove()
 				.exec();
 
 			User.findById(req.user._id, (e, user) => {
-				user.numMovies = user.numMovies - 1;
+				user.avgRating =
+					user.numMovies <= 1
+						? 0
+						: (user.avgRating * user.numMovies -
+								req.body.movie.personalRating) /
+							(user.numMovies - 1);
+				user.numMovies--;
 				user.save((e, updatedUser) => {
 					res.send(updatedUser);
 				});
@@ -82,7 +88,9 @@ module.exports = app => {
 			await movie.save();
 
 			User.findById(req.user._id, (e, user) => {
-				user.numMovies = user.numMovies + 1;
+				user.numMovies++;
+				user.avgRating +=
+					(personalRating - user.avgRating) / user.numMovies;
 				user.save((e, updatedUser) => {
 					res.send(updatedUser);
 				});

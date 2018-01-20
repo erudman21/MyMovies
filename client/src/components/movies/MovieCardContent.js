@@ -79,10 +79,7 @@ class MovieCardContent extends Component {
 							/>
 							<Divider hidden style={{ margin: '1% 0' }} />
 							Your Review:<br />
-							<div
-								style={{
-									wordBreak: 'break-all'
-								}}>
+							<div style={{ wordBreak: 'break-all' }}>
 								{movie.personalComments}
 							</div>
 							<DeleteModal

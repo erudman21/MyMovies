@@ -1,28 +1,33 @@
 import React from 'react';
-import { Card, List } from 'semantic-ui-react';
+import { Card, List, Header } from 'semantic-ui-react';
 
 const ProfileDisplay = ({ user }) => {
+	console.log(user);
 	return (
 		<Card style={{ borderRadius: '0' }}>
-			<Card.Header
+			<Header
 				textAlign="center"
-				style={{ fontSize: '130%', padding: '5px' }}>
+				style={{
+					fontSize: '130%',
+					padding: '5px',
+					marginBottom: '0'
+				}}>
 				<b>{user.name}</b>
-			</Card.Header>
+			</Header>
 			<Card.Meta textAlign="center">
 				<List horizontal>
 					<List.Item>
 						<List.Content style={{ textAlign: 'center' }}>
 							<b>Movies</b>
 							<br />
-							{user.numMovies}
+							{user.numMovies ? user.numMovies : 0}
 						</List.Content>
 					</List.Item>
 					<List.Item>
 						<List.Content style={{ textAlign: 'center' }}>
 							<b>Average Rating</b>
 							<br />
-							{user.avgRating}
+							{user.avgRating ? user.avgRating.toFixed(2) : 0}
 						</List.Content>
 					</List.Item>
 				</List>

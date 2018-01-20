@@ -21,7 +21,7 @@ class Dashboard extends Component {
 		const { deleteMovie, fetchMovies } = this.props;
 
 		this.setState({ loading: true });
-		deleteMovie({ title: movie }).then(() => {
+		deleteMovie({ movie }).then(() => {
 			fetchMovies().then(() => {
 				this.setState({ open: false, loading: false });
 			});
