@@ -18,8 +18,10 @@ const SuggestionList = ({ movies }) => {
 
 	return (
 		<Card style={{ borderRadius: '0' }}>
-			<Card.Header style={{ fontSize: '130%', margin: '15px 10px' }}>
-				<b>Suggested for you</b>
+			<Card.Header
+				textAlign="center"
+				style={{ fontSize: '130%', margin: '15px 10px' }}>
+				<b>Suggested movies for you</b>
 			</Card.Header>
 			<List style={{ marginTop: '0' }}>{renderList()}</List>
 		</Card>
