@@ -44,6 +44,8 @@ class Dashboard extends Component {
 				style={{
 					backgroundColor: '#f7f7f4',
 					position: 'absolute',
+					minWidth: '990px',
+					margin: '0 auto',
 					width: '100%',
 					minHeight: '100%'
 				}}>
@@ -55,12 +57,12 @@ class Dashboard extends Component {
 						style={{ marginTop: '20%' }}
 					/>
 				) : (
-					<Container>
+					<Container style={{ minWidth: '962px' }}>
 						<Container
 							style={{
 								float: 'left',
-								width: '18%',
-								paddingRight: '15px',
+								width: '185px',
+								paddingRight: '1.3%',
 								display: 'inline-block'
 							}}>
 							<ProfileDisplay user={auth} />
