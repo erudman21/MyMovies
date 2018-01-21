@@ -8,6 +8,7 @@ const ProfileDisplay = ({ user }) => {
 				<img
 					src={require('../../media/film-roll.png')}
 					style={{ width: '175px', marginLeft: '-2px' }}
+					alt="film-roll"
 				/>
 			</div>
 			<Header
