@@ -46,7 +46,10 @@ class SiteHeader extends Component {
 
 	render() {
 		return (
-			<Menu inverted color="black" style={{ borderRadius: '0px' }}>
+			<Menu
+				inverted
+				color="black"
+				style={{ borderRadius: '0px', marginBottom: '0' }}>
 				<Container>
 					<Menu.Item
 						as="a"

@@ -7,7 +7,7 @@ const ProfileDisplay = ({ user }) => {
 			<div style={{ overflow: 'hidden' }}>
 				<img
 					src={require('../../media/film-roll.png')}
-					style={{ width: '175px', marginLeft: '-2px' }}
+					style={{ width: '110%', marginLeft: '-5%' }}
 					alt="film-roll"
 				/>
 			</div>

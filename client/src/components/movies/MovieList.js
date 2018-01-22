@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Container } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 import MovieCardContent from './MovieCardContent';
 
 class MovieList extends Component {
@@ -66,17 +66,7 @@ class MovieList extends Component {
 			);
 		}
 
-		return (
-			<Container
-				style={{
-					paddingLeft: '0',
-					width: '50vw',
-					minWidth: '490px',
-					display: 'inline-block'
-				}}>
-				{content}
-			</Container>
-		);
+		return <div>{content}</div>;
 	}
 }
 

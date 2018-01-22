@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import MovieList from './movies/MovieList';
 import * as actions from '../actions';
 import SiteHeader from './SiteHeader';
-import { Container, Loader } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import SuggestionList from './user/SuggestionList';
 import ProfileDisplay from './user/ProfileDisplay';
 
@@ -40,40 +40,45 @@ class Dashboard extends Component {
 		const { loading } = this.state;
 
 		return (
-			<div
-				style={{
-					backgroundColor: '#f7f7f4',
-					position: 'absolute',
-					minWidth: '990px',
-					margin: '0 auto',
-					width: '100%',
-					minHeight: '100%'
-				}}>
+			<div>
 				<SiteHeader />
-				{loading ? (
-					<Loader
-						active
-						inline="centered"
-						style={{ marginTop: '20%' }}
-					/>
-				) : (
-					<Container style={{ minWidth: '962px' }}>
-						<Container
+				<div
+					style={{
+						backgroundColor: '#f7f7f4',
+						position: 'absolute',
+						margin: '0 auto',
+						width: '100%',
+						minHeight: '100%'
+					}}>
+					{loading ? (
+						<Loader active inline="centered" style={{ marginTop: '20%' }} />
+					) : (
+						<div
 							style={{
-								float: 'left',
-								width: '185px',
-								paddingRight: '1.3%',
-								display: 'inline-block'
+								marginTop: '15px',
+								display: 'grid',
+								gridTemplateColumns:
+									'minmax(10%, 5%) 195px minmax(500px, 1fr) 195px minmax(10%, 5%)',
+								gridTemplateRows: 'minmax(117px, 120px) auto',
+								gridGap: '15px'
 							}}>
-							<ProfileDisplay user={auth} />
-							<SuggestionList movies={movies} />
-						</Container>
-						<MovieList
-							movies={movies}
-							delClicked={this.delClicked}
-						/>
-					</Container>
-				)}
+							<div
+								style={{
+									float: 'right',
+									gridColumn: '2',
+									gridRow: '1'
+								}}>
+								<ProfileDisplay user={auth} />
+							</div>
+							<div style={{ float: 'right', gridColumn: '2', gridRow: '2' }}>
+								<SuggestionList movies={movies} />
+							</div>
+							<div style={{ gridColumn: '3' }}>
+								<MovieList movies={movies} delClicked={this.delClicked} />
+							</div>
+						</div>
+					)}
+				</div>
 			</div>
 		);
 	}
