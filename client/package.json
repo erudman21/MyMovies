@@ -14,6 +14,9 @@
 		},
 		"/omdb/*": {
 			"target": "http://localhost:5000"
+		},
+		"/theaters/movies": {
+			"target": "http://localhost:5000"
 		}
 	},
 	"dependencies": {

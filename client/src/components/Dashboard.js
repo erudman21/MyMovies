@@ -6,15 +6,30 @@ import SiteHeader from './SiteHeader';
 import { Loader } from 'semantic-ui-react';
 import SuggestionList from './user/SuggestionList';
 import ProfileDisplay from './user/ProfileDisplay';
+import MoviesNear from './user/MoviesNear';
 
 class Dashboard extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			loading: true
+			loading: true,
+			location: { lat: '', long: '' }
 		};
 	}
+
+	getLocation = () => {
+		if ('geolocation' in navigator) {
+			navigator.geolocation.getCurrentPosition(position => {
+				this.setState({
+					location: {
+						lat: position.coords.latitude,
+						long: position.coords.longitude
+					}
+				});
+			});
+		}
+	};
 
 	// Delete whatever clicked is set to in state
 	delClicked = movie => {
@@ -33,11 +48,12 @@ class Dashboard extends Component {
 		this.props.fetchMovies().then(() => {
 			this.setState({ loading: false });
 		});
+		this.getLocation();
 	};
 
 	render() {
 		const { movies, auth } = this.props;
-		const { loading } = this.state;
+		const { loading, location } = this.state;
 
 		return (
 			<div>
@@ -75,6 +91,9 @@ class Dashboard extends Component {
 							</div>
 							<div style={{ gridColumn: '3' }}>
 								<MovieList movies={movies} delClicked={this.delClicked} />
+							</div>
+							<div style={{ gridColumn: '4' }}>
+								<MoviesNear location={location} />
 							</div>
 						</div>
 					)}
