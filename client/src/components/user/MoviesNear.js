@@ -11,10 +11,10 @@ class MoviesNear extends Component {
 	}
 
 	componentDidMount = () => {
-		this.props.fetchTheaters(
-			this.props.location,
-			moment().format('YYYY-MM-DD')
-		);
+		// this.props.fetchTheaters({
+		// 	location: this.props.location,
+		// 	date: moment().format('YYYY-MM-DD')
+		// });
 	};
 
 	render() {

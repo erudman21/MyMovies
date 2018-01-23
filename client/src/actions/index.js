@@ -43,7 +43,7 @@ export const loadMovieDataLight = title => async dispatch => {
 
 // Gets movie times for local theaters based on the user's lot and long if
 // location services are enabled
-export const fetchTheaters = (location, date) => async dispatch => {
-	const res = await axios.post('/theaters/movies', location, date);
+export const fetchTheaters = info => async dispatch => {
+	const res = await axios.post('/theaters/movies', info);
 	dispatch({ type: types.MOVIE_THEATERS, payload: res.data });
 };
