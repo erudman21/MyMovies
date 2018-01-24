@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import MovieList from './movies/MovieList';
 import * as actions from '../actions';
 import SiteHeader from './SiteHeader';
-import { Loader } from 'semantic-ui-react';
+import { Loader, Container } from 'semantic-ui-react';
 import SuggestionList from './user/SuggestionList';
 import ProfileDisplay from './user/ProfileDisplay';
 import MoviesNear from './user/MoviesNear';
@@ -69,33 +69,33 @@ class Dashboard extends Component {
 					{loading ? (
 						<Loader active inline="centered" style={{ marginTop: '20%' }} />
 					) : (
-						<div
+						<Container
 							style={{
 								marginTop: '15px',
 								display: 'grid',
 								gridTemplateColumns:
-									'minmax(10%, 5%) 195px minmax(500px, 1fr) 195px minmax(10%, 5%)',
+									'195px minmax(500px, 1fr) 195px',
 								gridTemplateRows: 'minmax(117px, 120px) auto',
 								gridGap: '15px'
 							}}>
 							<div
 								style={{
 									float: 'right',
-									gridColumn: '2',
+									gridColumn: '1',
 									gridRow: '1'
 								}}>
 								<ProfileDisplay user={auth} />
 							</div>
-							<div style={{ float: 'right', gridColumn: '2', gridRow: '2' }}>
+							<div style={{ float: 'right', gridColumn: '1', gridRow: '2' }}>
 								<SuggestionList movies={movies} />
 							</div>
-							<div style={{ gridColumn: '3' }}>
+							<div style={{ gridColumn: '2' }}>
 								<MovieList movies={movies} delClicked={this.delClicked} />
 							</div>
-							<div style={{ gridColumn: '4' }}>
+							<div style={{ gridColumn: '3' }}>
 								<MoviesNear location={location} />
 							</div>
-						</div>
+						</Container>
 					)}
 				</div>
 			</div>
