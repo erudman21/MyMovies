@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Card, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { fetchTheaters } from '../../actions/index';
-import moment from 'moment';
 
 class MoviesNear extends Component {
 	constructor(props) {
@@ -28,7 +27,7 @@ class MoviesNear extends Component {
 					}}>
 					Movies Near You
 				</Header>
-				<Card.Meta textAlign="center">Hi</Card.Meta>
+				<Card.Meta textAlign="center">Soon to come!</Card.Meta>
 			</Card>
 		);
 	}

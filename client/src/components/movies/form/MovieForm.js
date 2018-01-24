@@ -61,7 +61,7 @@ class MovieForm extends Component {
 		const { movieData } = this.props;
 
 		return (
-			<Container>
+			<Container style={{ marginTop: '15px' }} >
 				<PrefilledDisplay movieData={movieData} />
 				<Container style={{ padding: '1.5% 0' }}>
 					{this.renderPersonalFields()}
