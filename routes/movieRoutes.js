@@ -10,12 +10,10 @@ const User = mongoose.model('users');
 module.exports = app => {
 	app.post('/api/movies/delete', requireLogin, async (req, res) => {
 		try {
-			Movie.find({
+			Movie.findOneAndRemove({
 				_user: req.user.id,
-				title: req.body.movie.title
-			})
-				.remove()
-				.exec();
+				title: req.body.movie.taitle
+			}).exec();
 
 			User.findById(req.user._id, (e, user) => {
 				user.avgRating =
@@ -56,18 +54,20 @@ module.exports = app => {
 		const tdaw = new TDAW({ apiKey: keys.tdKey });
 		let recs = [];
 
-		const temp = await tdaw.getRecommendations({
-			q: title,
-			type: 'movies',
-			verbose: '1'
-		});
+		try {
+			const temp = await tdaw.getRecommendations({
+				q: title,
+				type: 'movies',
+				verbose: '1'
+			}); 
 
-		for (var i = 0; i < 5; i++) {
-			recs[i] = {
-				name: temp[i].Name,
-				link: temp[i].yUrl
-			};
-		}
+			for (var i = 0; i < 5; i++) {
+				recs[i] = {
+					name: temp[i].Name,
+					link: temp[i].yUrl
+				};
+			}
+		} catch (e) {}
 
 		// Create a new movie object with all of the appropriate fields
 		const movie = new Movie({

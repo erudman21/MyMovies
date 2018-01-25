@@ -52,7 +52,7 @@ class MovieCardContent extends Component {
 						floated="left"
 						size="small"
 						src={movie.image}
-						style={{ margin: 'auto 2% auto 0', height: '30vh' }}
+						style={{ margin: 'auto 2% auto 0' }}
 					/>
 					<div style={{ maxHeight: '30vh', overflow: 'auto' }}>
 						<Card.Header
