@@ -12,7 +12,7 @@ module.exports = app => {
 		try {
 			Movie.findOneAndRemove({
 				_user: req.user.id,
-				title: req.body.movie.taitle
+				title: req.body.movie.title
 			}).exec();
 
 			User.findById(req.user._id, (e, user) => {
