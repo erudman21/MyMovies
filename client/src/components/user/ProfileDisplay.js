@@ -3,7 +3,7 @@ import { Card, List, Header } from "semantic-ui-react";
 
 const ProfileDisplay = ({ user }) => {
   return (
-    <Card style={{ borderRadius: "0", overflow: "hidden" }}>
+    <Card style={{ borderRadius: "0", overflow: "hidden", minHeight: "120px" }}>
       <div>
         <img
           src={require("../../media/film-roll.png")}

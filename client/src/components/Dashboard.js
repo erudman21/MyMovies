@@ -74,8 +74,9 @@ class Dashboard extends Component {
               style={{
                 marginTop: "15px",
                 display: "grid",
-                gridTemplateColumns: "195px minmax(500px, 1fr) 195px",
-                gridTemplateRows: "minmax(117px, 120px) auto",
+                gridTemplateColumns:
+                  "minmax(188px, 195px) minmax(300px, auto) minmax(130px, 195px)",
+                gridTemplateRows: "120px auto",
                 gridGap: "15px"
               }}
             >
