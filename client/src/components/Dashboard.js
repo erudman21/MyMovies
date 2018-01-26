@@ -62,20 +62,11 @@ class Dashboard extends Component {
                 display: 'grid',
                 gridTemplateColumns:
                   'minmax(188px, 195px) minmax(300px, auto) minmax(130px, 195px)',
-                gridTemplateRows: '120px auto',
                 gridGap: '15px'
               }}
             >
-              <div
-                style={{
-                  float: 'right',
-                  gridColumn: '1',
-                  gridRow: '1'
-                }}
-              >
+              <div style={{ gridColumn: '1' }}>
                 <ProfileDisplay user={auth} />
-              </div>
-              <div style={{ float: 'right', gridColumn: '1', gridRow: '2' }}>
                 <SuggestionList movies={movies} />
               </div>
               <div style={{ gridColumn: '2' }}>
