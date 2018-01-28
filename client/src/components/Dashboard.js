@@ -64,7 +64,7 @@ class Dashboard extends Component {
                 marginTop: '15px',
                 display: 'grid',
                 gridTemplateColumns:
-                  'minmax(188px, 195px) minmax(300px, auto) minmax(130px, 195px)',
+                  'minmax(188px, 195px) minmax(300px, auto) minmax(164px, 195px)',
                 gridGap: '15px'
               }}
             >
