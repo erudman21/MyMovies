@@ -26,6 +26,11 @@ export const deleteMovie = movie => async dispatch => {
   dispatch({ type: types.FETCH_USER, payload: res.data });
 };
 
+export const fetchFandangoMovies = () => async dispatch => {
+  const res = await axios.get('/fandango/movies');
+  dispatch({ type: types.FETCH_FANDANGO_MOVIES, payload: res.data });
+};
+
 // Load all of the movie's info by making a request to omdb api with the id
 // Used for displaying info on the movie form page
 export const loadMovieDataFull = (id, history) => async dispatch => {
