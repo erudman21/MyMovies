@@ -1,1 +1,1 @@
-Python-3.7.0a2
+Python-3.6
