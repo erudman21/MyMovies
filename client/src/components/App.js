@@ -7,21 +7,21 @@ import Dashboard from './Dashboard';
 import MovieNew from './movies/form/MovieNew';
 
 class App extends Component {
-	componentDidMount() {
-		this.props.fetchUser();
-	}
+  componentDidMount() {
+    this.props.fetchUser();
+  }
 
-	render() {
-		return (
-			<BrowserRouter>
-				<div>
-					<Route exact path="/" component={Landing} />
-					<Route exact path="/movies" component={Dashboard} />
-					<Route path="/movies/new" component={MovieNew} />
-				</div>
-			</BrowserRouter>
-		);
-	}
+  render() {
+    return (
+      <BrowserRouter>
+        <div>
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/movies" component={Dashboard} />
+          <Route path="/movies/new" component={MovieNew} />
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default connect(null, actions)(App);

@@ -6,15 +6,15 @@ import SiteHeader from './SiteHeader';
 import { Loader, Container } from 'semantic-ui-react';
 import SuggestionList from './user/SuggestionList';
 import ProfileDisplay from './user/ProfileDisplay';
-import MoviesNear from './user/moviesNear/MoviesNear';
+import Links from './user/links/Links';
+import CurrentMovies from './user/CurrentMovies';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      loading: true,
-      location: { lat: '', long: '' }
+      loading: true
     };
   }
 
@@ -31,15 +31,18 @@ class Dashboard extends Component {
   };
 
   componentDidMount = () => {
-    this.props.fetchUser();
-    this.props.fetchMovies().then(() => {
+    const { fetchUser, fetchMovies, fetchFandangoMovies } = this.props;
+
+    fetchUser();
+    fetchFandangoMovies();
+    fetchMovies().then(() => {
       this.setState({ loading: false });
     });
   };
 
   render() {
-    const { movies, auth } = this.props;
-    const { loading, location } = this.state;
+    const { movies, auth, currentMovies } = this.props;
+    const { loading } = this.state;
 
     return (
       <div>
@@ -73,7 +76,8 @@ class Dashboard extends Component {
                 <MovieList movies={movies} delClicked={this.delClicked} />
               </div>
               <div style={{ gridColumn: '3' }}>
-                <MoviesNear location={location} />
+                <Links />
+                <CurrentMovies currentMovies={currentMovies} />
               </div>
             </Container>
           )}
@@ -83,8 +87,8 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps({ fetchMovies, auth }) {
-  return { movies: fetchMovies, auth };
+function mapStateToProps({ fetchMovies, auth, fandangoMovies }) {
+  return { movies: fetchMovies, auth, currentMovies: fandangoMovies };
 }
 
 export default connect(mapStateToProps, actions)(Dashboard);

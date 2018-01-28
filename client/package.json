@@ -15,7 +15,7 @@
 		"/omdb/*": {
 			"target": "http://localhost:5000"
 		},
-		"/theaters/movies": {
+		"/fandango/movies": {
 			"target": "http://localhost:5000"
 		}
 	},
