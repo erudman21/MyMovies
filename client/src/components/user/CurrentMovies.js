@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Card, List, Image, Loader } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { fetchFandangoMovies } from '../../actions/index';
 
 class CurrentMovies extends Component {
   constructor(props) {
@@ -10,7 +12,11 @@ class CurrentMovies extends Component {
     };
   }
 
-  stopLoading = () => this.setState({ loading: false });
+  componentDidMount = () => {
+    this.props
+      .fetchFandangoMovies()
+      .then(() => this.setState({ loading: false }));
+  };
 
   renderMovies = () => {
     const { currentMovies } = this.props;
@@ -26,8 +32,6 @@ class CurrentMovies extends Component {
       );
     });
   };
-
-  componentWillReceiveProps = () => this.stopLoading();
 
   render() {
     const { loading } = this.state;
@@ -60,4 +64,8 @@ class CurrentMovies extends Component {
   }
 }
 
-export default CurrentMovies;
+function mapStateToProps({ fandangoMovies }) {
+  return { currentMovies: fandangoMovies };
+}
+
+export default connect(mapStateToProps, { fetchFandangoMovies })(CurrentMovies);

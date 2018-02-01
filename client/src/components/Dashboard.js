@@ -31,17 +31,16 @@ class Dashboard extends Component {
   };
 
   componentDidMount = () => {
-    const { fetchUser, fetchMovies, fetchFandangoMovies } = this.props;
+    const { fetchUser, fetchMovies } = this.props;
 
     fetchUser();
-    fetchFandangoMovies();
     fetchMovies().then(() => {
       this.setState({ loading: false });
     });
   };
 
   render() {
-    const { movies, auth, currentMovies } = this.props;
+    const { movies, auth } = this.props;
     const { loading } = this.state;
 
     return (
@@ -77,7 +76,7 @@ class Dashboard extends Component {
               </div>
               <div style={{ gridColumn: '3' }}>
                 <Links />
-                <CurrentMovies currentMovies={currentMovies} />
+                <CurrentMovies />
               </div>
             </Container>
           )}
@@ -87,8 +86,8 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps({ fetchMovies, auth, fandangoMovies }) {
-  return { movies: fetchMovies, auth, currentMovies: fandangoMovies };
+function mapStateToProps({ fetchMovies, auth }) {
+  return { movies: fetchMovies, auth };
 }
 
 export default connect(mapStateToProps, actions)(Dashboard);
