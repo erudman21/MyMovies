@@ -1,44 +1,49 @@
 const passport = require('passport');
 
 module.exports = app => {
-	// Google routes
-	app.get(
-		'/auth/google',
-		passport.authenticate('google', {
-			scope: ['profile', 'email']
-		})
-	);
+  // Google routes
+  app.get(
+    '/auth/google',
+    passport.authenticate('google', {
+      scope: ['profile', 'email']
+    })
+  );
 
-	app.get(
-		'/auth/google/callback',
-		passport.authenticate('google'),
-		(req, res) => {
-			res.redirect('/movies');
-		}
-	);
+  app.get(
+    '/auth/google/callback',
+    passport.authenticate('google'),
+    (req, res) => {
+      res.redirect('/movies');
+    }
+  );
 
-	// Facebook routes
-	app.get(
-		'/auth/facebook',
-		passport.authenticate('facebook', {
-			scope: ['public_profile', 'email']
-		})
-	);
+  // local routes
+  app.get('/auth/local', passport.authenticate('local'), (req, res) => {
+    res.redirect('/movies');
+  });
 
-	app.get(
-		'/auth/facebook/callback',
-		passport.authenticate('facebook'),
-		(req, res) => {
-			res.redirect('/movies');
-		}
-	);
+  // Facebook routes
+  app.get(
+    '/auth/facebook',
+    passport.authenticate('facebook', {
+      scope: ['public_profile', 'email']
+    })
+  );
 
-	app.get('/api/logout', (req, res) => {
-		req.logout();
-		res.redirect('/');
-	});
+  app.get(
+    '/auth/facebook/callback',
+    passport.authenticate('facebook'),
+    (req, res) => {
+      res.redirect('/movies');
+    }
+  );
 
-	app.get('/api/current_user', async (req, res) => {
-		res.send(req.user);
-	});
+  app.get('/api/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+  });
+
+  app.get('/api/current_user', async (req, res) => {
+    res.send(req.user);
+  });
 };

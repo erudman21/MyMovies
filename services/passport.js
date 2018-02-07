@@ -49,7 +49,10 @@ passport.use(
       if (err) return done(err);
 
       if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+        return done(null, false, { message: 'Incorrect username!' });
+      }
+      if (user.localPassword != password) {
+        return done(null, false, { message: 'Incorrect password!' });
       }
 
       return done(null, user);
