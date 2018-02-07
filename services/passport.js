@@ -1,10 +1,11 @@
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const FacebookStrategy = require("passport-facebook").Strategy;
-const mongoose = require("mongoose");
-const keys = require("../config/keys");
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
+const mongoose = require('mongoose');
+const keys = require('../config/keys');
 
-const User = mongoose.model("users");
+const User = mongoose.model('users');
 
 // Turn user mongoose model into an id to identify the user on site
 passport.serializeUser((user, done) => {
@@ -24,7 +25,7 @@ passport.use(
     {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
-      callbackURL: "/auth/google/callback",
+      callbackURL: '/auth/google/callback',
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
@@ -42,13 +43,27 @@ passport.use(
   )
 );
 
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    User.findOne({ localUsername: username }, (err, user) => {
+      if (err) return done(err);
+
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+
+      return done(null, user);
+    });
+  })
+);
+
 // Facebook auth
 passport.use(
   new FacebookStrategy(
     {
       clientID: keys.facebookID,
       clientSecret: keys.facebookSecret,
-      callbackURL: "/auth/facebook/callback",
+      callbackURL: '/auth/facebook/callback',
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
