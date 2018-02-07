@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
-import { Button, Modal, Icon, Header, Dimmer, Loader } from 'semantic-ui-react';
+import {
+  Button,
+  Modal,
+  Icon,
+  Header,
+  Dimmer,
+  Loader,
+  Form,
+  Segment,
+  Divider
+} from 'semantic-ui-react';
 
 class LoginModal extends Component {
   constructor(props) {
@@ -35,28 +45,51 @@ class LoginModal extends Component {
         <Header style={{ textAlign: 'center', borderRadius: '5px' }}>
           Log in to see your own movies!
         </Header>
-        <div style={{ width: '90%', marginLeft: '5%' }}>
-          <Button
-            disabled
-            onClick={() => this.startLoading()}
-            href="/auth/facebook"
-            color="facebook"
-            fluid
-            style={{ marginTop: '5%' }}
-          >
-            <Icon name="facebook" /> Facebook - Sorry, not currently available
-          </Button>
-          <br />
-          <Button
-            onClick={() => this.startLoading()}
-            href="/auth/google"
-            color="google plus"
-            fluid
-            style={{ marginBottom: '5%' }}
-          >
-            <Icon name="google plus" /> Google
-          </Button>
-        </div>
+        <Form size="small">
+          <Segment stacked>
+            <Form.Input
+              fluid
+              icon="user"
+              iconPosition="left"
+              placeholder="E-mail address"
+            />
+            <Form.Input
+              fluid
+              icon="lock"
+              iconPosition="left"
+              placeholder="Password"
+              type="password"
+            />
+
+            <Button
+              color="olive"
+              fluid
+              onClick={() => this.startLoading()}
+              href="/auth/local"
+            >
+              Login
+            </Button>
+            <Divider horizontal>Or</Divider>
+            <Button
+              disabled
+              onClick={() => this.startLoading()}
+              href="/auth/facebook"
+              color="facebook"
+              fluid
+              style={{ marginBottom: '10px' }}
+            >
+              <Icon name="facebook" /> Facebook - Sorry, not currently available
+            </Button>
+            <Button
+              onClick={() => this.startLoading()}
+              href="/auth/google"
+              color="google plus"
+              fluid
+            >
+              <Icon name="google plus" /> Google
+            </Button>
+          </Segment>
+        </Form>
       </Modal>
     );
   }
