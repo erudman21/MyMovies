@@ -43,6 +43,7 @@ passport.use(
   )
 );
 
+// Local auth
 passport.use(
   new LocalStrategy((username, password, done) => {
     User.findOne({ localUsername: username }, (err, user) => {
@@ -51,7 +52,8 @@ passport.use(
       if (!user) {
         return done(null, false, { message: 'Incorrect username!' });
       }
-      if (user.localPassword != password) {
+
+      if (!user.verifyPassword(password)) {
         return done(null, false, { message: 'Incorrect password!' });
       }
 
