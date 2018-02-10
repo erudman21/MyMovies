@@ -1,14 +1,14 @@
-const Path = require("path-parser");
-const requireLogin = require("../middlewares/requireLogin");
-const mongoose = require("mongoose");
-const TDAW = require("tdaw");
-const keys = require("../config/keys");
+const Path = require('path-parser');
+const requireLogin = require('../middlewares/requireLogin');
+const mongoose = require('mongoose');
+const TDAW = require('tdaw');
+const keys = require('../config/keys');
 
-const Movie = mongoose.model("movies");
-const User = mongoose.model("users");
+const Movie = mongoose.model('movies');
+const User = mongoose.model('users');
 
 module.exports = app => {
-  app.post("/api/movies/delete", requireLogin, async (req, res) => {
+  app.post('/api/movies/delete', requireLogin, async (req, res) => {
     try {
       Movie.findOneAndRemove({
         _user: req.user.id,
@@ -32,14 +32,14 @@ module.exports = app => {
     }
   });
 
-  app.get("/api/movies", requireLogin, async (req, res) => {
+  app.get('/api/movies', requireLogin, async (req, res) => {
     const movies = await Movie.find({ _user: req.user.id });
     // Reverse movies so newly added movies appear first
     movies.reverse();
     res.send(movies);
   });
 
-  app.post("/api/movies", requireLogin, async (req, res) => {
+  app.post('/api/movies', requireLogin, async (req, res) => {
     const {
       title,
       image,
@@ -57,8 +57,8 @@ module.exports = app => {
     try {
       const temp = await tdaw.getRecommendations({
         q: title,
-        type: "movies",
-        verbose: "1"
+        type: 'movies',
+        verbose: '1'
       });
 
       for (var i = 0; i < 5; i++) {
