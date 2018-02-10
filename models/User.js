@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  localUsername: String,
+  localUsername: { type: String, unique: true },
   localPassword: String,
   googleId: String,
   facebookId: String,
