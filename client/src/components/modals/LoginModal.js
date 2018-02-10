@@ -51,7 +51,7 @@ class LoginModal extends Component {
               fluid
               icon="user"
               iconPosition="left"
-              placeholder="E-mail address"
+              placeholder="Username"
             />
             <Form.Input
               fluid
@@ -60,26 +60,18 @@ class LoginModal extends Component {
               placeholder="Password"
               type="password"
             />
-
             <Button
-              color="olive"
+              color="instagram"
               fluid
               onClick={() => this.startLoading()}
               href="/auth/local"
             >
               Login
             </Button>
+            <p style={{ textAlign: 'center', marginTop: '5px' }}>
+              New user? Click <a href="/auth/local/register">here</a>
+            </p>
             <Divider horizontal>Or</Divider>
-            <Button
-              disabled
-              onClick={() => this.startLoading()}
-              href="/auth/facebook"
-              color="facebook"
-              fluid
-              style={{ marginBottom: '10px' }}
-            >
-              <Icon name="facebook" /> Facebook - Sorry, not currently available
-            </Button>
             <Button
               onClick={() => this.startLoading()}
               href="/auth/google"
