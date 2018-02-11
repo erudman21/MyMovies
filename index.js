@@ -15,10 +15,10 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// Website uses cookies, max age of ~ a month
+// Website uses cookies, max age of ~ a day
 app.use(
   cookieSession({
-    maxAge: 30 * 24 * 60 * 60 * 1000,
+    maxAge: 3 * 24 * 60 * 60 * 1000,
     keys: [keys.cookieKey]
   })
 );
