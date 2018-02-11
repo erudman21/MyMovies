@@ -26,6 +26,7 @@ export const deleteMovie = movie => async dispatch => {
   dispatch({ type: types.FETCH_USER, payload: res.data });
 };
 
+// Get the top current box office movies from Fandango
 export const fetchFandangoMovies = () => async dispatch => {
   const res = await axios.get('/fandango/movies');
   dispatch({ type: types.FETCH_FANDANGO_MOVIES, payload: res.data });
