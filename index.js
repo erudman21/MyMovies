@@ -13,6 +13,7 @@ mongoose.connect(keys.mongoURI);
 const app = express();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 // Website uses cookies, max age of ~ a month
 app.use(
   cookieSession({
