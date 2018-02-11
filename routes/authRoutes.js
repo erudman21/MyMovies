@@ -20,10 +20,18 @@ module.exports = app => {
   // local routes
   app.post(
     '/auth/local/register',
-    passport.authenticate('local-register', {
-      successRedirect: '/movies',
-      failureRedirect: '/'
-    })
+    passport.authenticate('local-register'),
+    (req, res) => {
+      res.redirect('/movies');
+    }
+  );
+
+  app.post(
+    '/auth/local/login',
+    passport.authenticate('local-login'),
+    (req, res) => {
+      res.redirect('/movies');
+    }
   );
 
   // Facebook routes
