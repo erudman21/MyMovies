@@ -12,29 +12,12 @@ const userSchema = new Schema({
   avgRating: { type: Number, default: 0 }
 });
 
-userSchema.pre('save', function(next) {
-  var user = this;
+userSchema.methods.generateHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
 
-  if (user.localPassword) {
-    if (!user.isModified('localPassword')) return next();
-
-    bcrypt.genSalt(5, (err, salt) => {
-      if (err) return next(err);
-
-      bcrypt.hash(user.localPassword, salt, null, (err, hash) => {
-        if (err) return next(err);
-        user.localPassword = hash;
-        next();
-      });
-    });
-  }
-});
-
-userSchema.methods.verifyPassword = function(password, cb) {
-  bcrypt.compare(password, this.password, function(err, isMatch) {
-    if (err) return cb(err);
-    cb(null, isMatch);
-  });
+userSchema.methods.validPassword = function(password) {
+  return bcrypt.compareSync(password, this.localPassword);
 };
 
 mongoose.model('users', userSchema);
