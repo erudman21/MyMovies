@@ -21,7 +21,6 @@ class DeleteModal extends Component {
     return (
       <Modal
         size="mini"
-        basic
         open={open}
         onClose={close}
         style={{ borderRadius: '5px' }}
@@ -35,16 +34,13 @@ class DeleteModal extends Component {
         <Modal.Actions>
           <Button
             onClick={close}
-            basic
-            inverted
-            color="grey"
+            color="instagram"
             style={{ width: '40%', margin: '5%' }}
           >
             Nevermind!
           </Button>
           <Button
             floated="right"
-            inverted
             onClick={deleteClicked}
             color="red"
             style={{ width: '40%', margin: '5%' }}
