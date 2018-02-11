@@ -18,9 +18,13 @@ module.exports = app => {
   );
 
   // local routes
-  app.get('/auth/local', passport.authenticate('local'), (req, res) => {
-    res.redirect('/movies');
-  });
+  app.post(
+    '/auth/local/register',
+    passport.authenticate('local-register', {
+      successRedirect: '/movies',
+      failureRedirect: '/'
+    })
+  );
 
   // Facebook routes
   app.get(
