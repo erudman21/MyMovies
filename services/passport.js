@@ -45,20 +45,21 @@ passport.use(
 
 // Local auth
 passport.use(
-  new LocalStrategy((username, password, done) => {
-    User.findOne({ localUsername: username }, (err, user) => {
-      if (err) return done(err);
+  'local-register',
+  new LocalStrategy(async (username, password, done) => {
+    const existingUser = await User.findOne({ localUsername: username });
 
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username!' });
-      }
-
-      if (!user.verifyPassword(password)) {
-        return done(null, false, { message: 'Incorrect password!' });
-      }
-
-      return done(null, user);
+    if (existingUser) {
+      return done(null, false, { message: 'That username is already taken' });
+    }
+    const user = await new User({
+      localUsername: username,
+      localPassword: generateHash(password)
+    }).save(err => {
+      if (err) throw err;
     });
+
+    done(null, user);
   })
 );
 
