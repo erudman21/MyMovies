@@ -10,13 +10,15 @@ import {
   Segment,
   Divider
 } from 'semantic-ui-react';
+import RegisterModal from './RegisterModal';
 
 class LoginModal extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      loading: false
+      loading: false,
+      registerModalOpen: false
     };
   }
 
@@ -26,9 +28,12 @@ class LoginModal extends Component {
     setTimeout(() => this.setState({ loading: false }), 4000);
   }
 
+  showRegisterModal = () => this.setState({ registerModalOpen: true });
+  closeRegisterModal = () => this.setState({ registerModalOpen: false });
+
   render() {
     const { open, close } = this.props;
-    const { loading } = this.state;
+    const { loading, registerModalOpen } = this.state;
 
     return (
       <Modal
@@ -69,7 +74,10 @@ class LoginModal extends Component {
               Login
             </Button>
             <p style={{ textAlign: 'center', marginTop: '5px' }}>
-              New user? Click <a href="/auth/local/register">here</a>
+              New user? Click{' '}
+              <a onClick={this.showRegisterModal} style={{ cursor: 'pointer' }}>
+                here
+              </a>
             </p>
             <Divider horizontal>Or</Divider>
             <Button
@@ -82,6 +90,10 @@ class LoginModal extends Component {
             </Button>
           </Segment>
         </Form>
+        <RegisterModal
+          open={registerModalOpen}
+          close={this.closeRegisterModal}
+        />
       </Modal>
     );
   }
