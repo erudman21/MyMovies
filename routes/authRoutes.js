@@ -20,10 +20,11 @@ module.exports = app => {
   // local routes
   app.post(
     '/auth/local/register',
-    passport.authenticate('local-register'),
-    (req, res) => {
-      res.redirect('/movies');
-    }
+    passport.authenticate('local-register', {
+      successRedirect: '/movies',
+      failureRedirect: '/',
+      failureFlash: true
+    })
   );
 
   app.post(

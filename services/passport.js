@@ -49,7 +49,11 @@ passport.use(
   new LocalStrategy(async (username, password, done) => {
     const existingUser = await User.findOne({ localUsername: username });
     if (existingUser) {
-      return done(null, false, { message: 'That username is already taken!' });
+      return done(
+        null,
+        false,
+        req.flash('signupMessage', 'That username is taken')
+      );
     }
     const user = await new User({ localUsername: username });
     user.localPassword = user.generateHash(password);

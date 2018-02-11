@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Button, Form } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { registerNewUser } from '../../actions/index';
 
 class RegisterModal extends Component {
   constructor(props) {
@@ -15,6 +17,12 @@ class RegisterModal extends Component {
     this.setState({ [name]: value });
   };
 
+  handleSubmit = () => {
+    const { registerNewUser } = this.props;
+
+    registerNewUser({ user: this.state });
+  };
+
   render() {
     const { open, close } = this.props;
     const { username, password } = this.state;
@@ -25,7 +33,7 @@ class RegisterModal extends Component {
           Create a new account
         </Modal.Header>
         <Modal.Content>
-          <Form size="small" action="/auth/local/register" method="POST">
+          <Form size="small" onSubmit={this.handleSubmit}>
             <Form.Input
               value={username}
               name="username"
@@ -65,4 +73,4 @@ class RegisterModal extends Component {
   }
 }
 
-export default RegisterModal;
+export default connect(null, { registerNewUser })(RegisterModal);

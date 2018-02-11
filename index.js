@@ -4,6 +4,7 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
+const flash = require('connect-flash');
 require('./models/User');
 require('./models/Movie');
 require('./services/passport');
@@ -13,7 +14,7 @@ mongoose.connect(keys.mongoURI);
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 // Website uses cookies, max age of ~ a month
 app.use(
   cookieSession({
@@ -23,6 +24,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 require('./routes/authRoutes')(app);
 require('./routes/movieRoutes')(app);
