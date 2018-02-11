@@ -48,17 +48,12 @@ passport.use(
   'local-register',
   new LocalStrategy(async (username, password, done) => {
     const existingUser = await User.findOne({ localUsername: username });
-
     if (existingUser) {
-      return done(null, false, { message: 'That username is already taken' });
+      return done(null, existingUser);
     }
-    const user = await new User({
-      localUsername: username,
-      localPassword: generateHash(password)
-    }).save(err => {
-      if (err) throw err;
-    });
-
+    const user = await new User({ localUsername: username });
+    user.localPassword = user.generateHash(password);
+    user.save();
     done(null, user);
   })
 );
