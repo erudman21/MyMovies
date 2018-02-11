@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Form, Segment } from 'semantic-ui-react';
+import { Modal, Button, Form } from 'semantic-ui-react';
 
 class RegisterModal extends Component {
   render() {
@@ -12,21 +12,19 @@ class RegisterModal extends Component {
         </Modal.Header>
         <Modal.Content>
           <Form size="small">
-            <Segment stacked>
-              <Form.Input
-                fluid
-                icon="user"
-                iconPosition="left"
-                placeholder="Username"
-              />
-              <Form.Input
-                fluid
-                icon="lock"
-                iconPosition="left"
-                placeholder="Password"
-                type="password"
-              />
-            </Segment>
+            <Form.Input
+              fluid
+              icon="user"
+              iconPosition="left"
+              placeholder="Username"
+            />
+            <Form.Input
+              fluid
+              icon="lock"
+              iconPosition="left"
+              placeholder="Password"
+              type="password"
+            />
           </Form>
         </Modal.Content>
         <Modal.Actions>
