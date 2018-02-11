@@ -6,6 +6,9 @@
 		"/auth/google": {
 			"target": "http://localhost:5000"
 		},
+		"/auth/local/*": {
+			"target": "http://localhost:5000"
+		},
 		"/auth/facebook": {
 			"target": "http://localhost:5000/"
 		},
