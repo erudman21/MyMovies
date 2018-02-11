@@ -11,7 +11,9 @@ class RegisterModal extends Component {
     };
   }
 
-  handleInput = (e, { value, name }) => this.setState({ [name]: value });
+  handleInput = (e, { value, name }) => {
+    this.setState({ [name]: value });
+  };
 
   render() {
     const { open, close } = this.props;
@@ -35,6 +37,7 @@ class RegisterModal extends Component {
             />
             <Form.Input
               value={password}
+              type="password"
               name="password"
               onChange={this.handleInput}
               fluid
