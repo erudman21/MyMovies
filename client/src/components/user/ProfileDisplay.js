@@ -18,7 +18,7 @@ const ProfileDisplay = ({ user }) => {
           margin: '0 auto'
         }}
       >
-        <b>{user.name}</b>
+        <b>{user.localUsername ? user.localUsername : user.name}</b>
       </Header>
       <Card.Meta textAlign="center">
         <List horizontal>
