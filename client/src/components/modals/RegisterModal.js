@@ -59,6 +59,7 @@ class RegisterModal extends Component {
               icon="user"
               iconPosition="left"
               placeholder="Username"
+              error={error && username.length === 0 ? true : false}
             />
             <Form.Input
               value={password}
@@ -69,6 +70,7 @@ class RegisterModal extends Component {
               icon="lock"
               iconPosition="left"
               placeholder="Password"
+              error={error && password.length === 0 ? true : false}
             />
             {error ? <Message error content={usernameError} /> : null}
             <Button
