@@ -27,6 +27,10 @@ module.exports = app => {
     })
   );
 
+  app.get('/auth/local/register', (req, res) => {
+    res.send(req.flash('error')[0]);
+  });
+
   app.post(
     '/auth/local/login',
     passport.authenticate('local-login'),
