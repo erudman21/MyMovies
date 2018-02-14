@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Modal, Button, Form } from 'semantic-ui-react';
+import { Modal, Button, Form, Message } from 'semantic-ui-react';
+import { getFlashRegisterMessages } from '../../actions/index';
+import axios from 'axios';
 import { connect } from 'react-redux';
-import { registerNewUser } from '../../actions/index';
 
 class RegisterModal extends Component {
   constructor(props) {
@@ -9,7 +10,9 @@ class RegisterModal extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      usernameError: '',
+      error: false
     };
   }
 
@@ -18,14 +21,28 @@ class RegisterModal extends Component {
   };
 
   handleSubmit = () => {
-    const { registerNewUser } = this.props;
+    const { username, password } = this.state;
+    const { getFlashRegisterMessages } = this.props;
 
-    registerNewUser({ user: this.state });
+    axios
+      .post('/auth/local/register', `username=${username}&password=${password}`)
+      .then(() =>
+        getFlashRegisterMessages().then(() => {
+          const { message } = this.props;
+
+          if (message) {
+            this.setState({
+              error: true,
+              usernameError: message
+            });
+          }
+        })
+      );
   };
 
   render() {
     const { open, close } = this.props;
-    const { username, password } = this.state;
+    const { username, password, error, usernameError } = this.state;
 
     return (
       <Modal open={open} onClose={close} size="mini">
@@ -33,7 +50,7 @@ class RegisterModal extends Component {
           Create a new account
         </Modal.Header>
         <Modal.Content>
-          <Form size="small" onSubmit={this.handleSubmit}>
+          <Form size="small" onSubmit={this.handleSubmit} error={error}>
             <Form.Input
               value={username}
               name="username"
@@ -53,6 +70,7 @@ class RegisterModal extends Component {
               iconPosition="left"
               placeholder="Password"
             />
+            {error ? <Message error content={usernameError} /> : null}
             <Button
               color="red"
               icon="arrow left"
@@ -73,4 +91,10 @@ class RegisterModal extends Component {
   }
 }
 
-export default connect(null, { registerNewUser })(RegisterModal);
+function mapStateToProps({ localAuthFlash }) {
+  return { message: localAuthFlash };
+}
+
+export default connect(mapStateToProps, {
+  getFlashRegisterMessages
+})(RegisterModal);
