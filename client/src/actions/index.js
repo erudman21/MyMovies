@@ -7,6 +7,12 @@ export const fetchUser = () => async dispatch => {
   dispatch({ type: types.FETCH_USER, payload: res.data });
 };
 
+// Get the error messages for local register/login authentication
+export const getFlashRegisterMessages = () => async dispatch => {
+  const res = await axios.get('/auth/local/register');
+  dispatch({ type: types.LOCAL_AUTH_FLASH, payload: res.data });
+};
+
 // add movie to database and redirect user to "/movies"
 export const addMovie = (values, history) => async dispatch => {
   const res = await axios.post('/api/movies', values);
