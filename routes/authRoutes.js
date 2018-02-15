@@ -21,7 +21,7 @@ module.exports = app => {
   app.post(
     '/auth/local/register',
     passport.authenticate('local-register', {
-      successRedirect: '/movies',
+      successRedirect: '/',
       failureRedirect: '/',
       failureFlash: true
     })
