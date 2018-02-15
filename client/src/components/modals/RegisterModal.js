@@ -3,6 +3,7 @@ import { Modal, Button, Form, Message } from 'semantic-ui-react';
 import { getFlashRegisterMessages } from '../../actions/index';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class RegisterModal extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class RegisterModal extends Component {
     this.state = {
       username: '',
       password: '',
-      usernameError: '',
+      confirmPassword: '',
+      errorMessage: '',
       error: false
     };
   }
@@ -21,28 +23,46 @@ class RegisterModal extends Component {
   };
 
   handleSubmit = () => {
-    const { username, password } = this.state;
-    const { getFlashRegisterMessages } = this.props;
+    const { username, password, confirmPassword } = this.state;
+    const { getFlashRegisterMessages, history } = this.props;
 
-    axios
-      .post('/auth/local/register', `username=${username}&password=${password}`)
-      .then(() =>
-        getFlashRegisterMessages().then(() => {
-          const { message } = this.props;
+    if (password !== confirmPassword) {
+      this.setState({
+        error: true,
+        errorMessage: "Those passwords don't match!"
+      });
+    } else {
+      axios
+        .post(
+          '/auth/local/register',
+          `username=${username}&password=${password}`
+        )
+        .then(() =>
+          getFlashRegisterMessages().then(() => {
+            const { message } = this.props;
 
-          if (message) {
-            this.setState({
-              error: true,
-              usernameError: message
-            });
-          }
-        })
-      );
+            if (message) {
+              this.setState({
+                error: true,
+                errorMessage: message
+              });
+            } else {
+              history.push('/movies');
+            }
+          })
+        );
+    }
   };
 
   render() {
     const { open, close } = this.props;
-    const { username, password, error, usernameError } = this.state;
+    const {
+      username,
+      password,
+      confirmPassword,
+      error,
+      errorMessage
+    } = this.state;
 
     return (
       <Modal open={open} onClose={close} size="mini">
@@ -59,7 +79,7 @@ class RegisterModal extends Component {
               icon="user"
               iconPosition="left"
               placeholder="Username"
-              error={error && username.length === 0 ? true : false}
+              error={error && username.length === 0}
             />
             <Form.Input
               value={password}
@@ -70,9 +90,20 @@ class RegisterModal extends Component {
               icon="lock"
               iconPosition="left"
               placeholder="Password"
-              error={error && password.length === 0 ? true : false}
+              error={error && password.length === 0}
             />
-            {error ? <Message error content={usernameError} /> : null}
+            <Form.Input
+              value={confirmPassword}
+              type="password"
+              name="confirmPassword"
+              onChange={this.handleInput}
+              fluid
+              icon="lock"
+              iconPosition="left"
+              placeholder="Confirm password"
+              error={error && confirmPassword.length === 0}
+            />
+            {error ? <Message error content={errorMessage} /> : null}
             <Button
               color="red"
               icon="arrow left"
@@ -99,4 +130,4 @@ function mapStateToProps({ localAuthFlash }) {
 
 export default connect(mapStateToProps, {
   getFlashRegisterMessages
-})(RegisterModal);
+})(withRouter(RegisterModal));
