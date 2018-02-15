@@ -13,6 +13,11 @@ export const getFlashRegisterMessages = () => async dispatch => {
   dispatch({ type: types.LOCAL_AUTH_FLASH, payload: res.data });
 };
 
+export const getFlashLoginMessages = () => async dispatch => {
+  const res = await axios.get('/auth/local/login');
+  dispatch({ type: types.LOCAL_AUTH_FLASH, payload: res.data });
+};
+
 // add movie to database and redirect user to "/movies"
 export const addMovie = (values, history) => async dispatch => {
   const res = await axios.post('/api/movies', values);
