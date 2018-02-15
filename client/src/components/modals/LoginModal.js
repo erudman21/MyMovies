@@ -8,9 +8,14 @@ import {
   Loader,
   Form,
   Segment,
-  Divider
+  Divider,
+  Message
 } from 'semantic-ui-react';
 import RegisterModal from './RegisterModal';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+import { getFlashLoginMessages } from '../../actions/index';
+import { connect } from 'react-redux';
 
 class LoginModal extends Component {
   constructor(props) {
@@ -18,7 +23,11 @@ class LoginModal extends Component {
 
     this.state = {
       loading: false,
-      registerModalOpen: false
+      username: '',
+      password: '',
+      registerModalOpen: false,
+      errorMessage: '',
+      error: false
     };
   }
 
@@ -28,12 +37,45 @@ class LoginModal extends Component {
     setTimeout(() => this.setState({ loading: false }), 4000);
   }
 
+  handleInput = (e, { value, name }) => {
+    this.setState({ [name]: value });
+  };
+
+  handleSubmit = () => {
+    const { username, password } = this.state;
+    const { getFlashLoginMessages, history } = this.props;
+
+    axios
+      .post('/auth/local/login', `username=${username}&password=${password}`)
+      .then(() => {
+        getFlashLoginMessages().then(() => {
+          const { message } = this.props;
+
+          if (message) {
+            this.setState({
+              error: true,
+              errorMessage: message
+            });
+          } else {
+            history.push('/movies');
+          }
+        });
+      });
+  };
+
   showRegisterModal = () => this.setState({ registerModalOpen: true });
   closeRegisterModal = () => this.setState({ registerModalOpen: false });
 
   render() {
     const { open, close } = this.props;
-    const { loading, registerModalOpen } = this.state;
+    const {
+      loading,
+      registerModalOpen,
+      username,
+      password,
+      error,
+      errorMessage
+    } = this.state;
 
     return (
       <Modal
@@ -50,27 +92,29 @@ class LoginModal extends Component {
         <Header style={{ textAlign: 'center', borderRadius: '5px' }}>
           Log in to see your own movies!
         </Header>
-        <Form size="small">
+        <Form size="small" onSubmit={this.handleSubmit} error={error}>
           <Segment stacked>
             <Form.Input
               fluid
+              name="username"
               icon="user"
+              onChange={this.handleInput}
               iconPosition="left"
               placeholder="Username"
+              error={error && username.length === 0}
             />
             <Form.Input
               fluid
+              name="password"
               icon="lock"
+              onChange={this.handleInput}
               iconPosition="left"
               placeholder="Password"
               type="password"
+              error={error && password.length === 0}
             />
-            <Button
-              color="instagram"
-              fluid
-              onClick={() => this.startLoading()}
-              href="/auth/local"
-            >
+            {error ? <Message error content={errorMessage} /> : null}
+            <Button color="instagram" fluid type="submit">
               Login
             </Button>
             <p style={{ textAlign: 'center', marginTop: '5px' }}>
@@ -99,4 +143,10 @@ class LoginModal extends Component {
   }
 }
 
-export default LoginModal;
+function mapStateToProps({ localAuthFlash }) {
+  return { message: localAuthFlash };
+}
+
+export default connect(mapStateToProps, { getFlashLoginMessages })(
+  withRouter(LoginModal)
+);

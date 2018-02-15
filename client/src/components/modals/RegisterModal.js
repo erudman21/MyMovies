@@ -107,6 +107,7 @@ class RegisterModal extends Component {
             <Button
               color="red"
               icon="arrow left"
+              type="button"
               content="Back"
               onClick={close}
             />

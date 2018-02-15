@@ -33,11 +33,16 @@ module.exports = app => {
 
   app.post(
     '/auth/local/login',
-    passport.authenticate('local-login'),
-    (req, res) => {
-      res.redirect('/movies');
-    }
+    passport.authenticate('local-login', {
+      successRedirect: '/',
+      failureRedirect: '/',
+      failureFlash: true
+    })
   );
+
+  app.get('/auth/local/login', (req, res) => {
+    res.send(req.flash('error')[0]);
+  });
 
   // Facebook routes
   app.get(
