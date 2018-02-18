@@ -4,4 +4,4 @@ Source code for MyMovies (in progress), a website that allows users to rate, and
 
 https://mymoviesjournal.herokuapp.com/
 
-# Note - Still in Progress - Does not work in Internet Explorer
+### Note - Still in Progress - Does not work in Internet Explorer
